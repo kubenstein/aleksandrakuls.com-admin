@@ -1,14 +1,13 @@
 import React from 'react'
-import ConcertList from './concertList.jsx'
-import Header from './Header.jsx'
 import Footer from './Footer.jsx'
+import Header from './Header.jsx'
 
-export default class App extends React.Component {
+export default class AppLayout extends React.Component {
   render() {
     return (
       <div>
         <Header />
-        <ConcertList />
+        {this.props.children}
         <Footer />
       </div>
     )

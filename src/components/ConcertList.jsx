@@ -1,5 +1,5 @@
 import React from 'react'
-import ConcertListItem from './concertListItem.jsx'
+import ConcertListItem from './ConcertListItem.jsx'
 
 var concerts = [
   {date: '1/12/2014', textPL: 'text PL 1', textEN: 'text EN 1'},
