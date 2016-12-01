@@ -1,4 +1,5 @@
 import React from 'react'
+import ConcertListItem from './concert-list-item.jsx'
 
 var concerts = [
   {date: '1/12/2014', textPL: 'text PL 1', textEN: 'text EN 1'},
@@ -18,7 +19,8 @@ export default class ConcertList extends React.Component {
         <h1>Concert list</h1>
         <ul>
           {this.state.concerts.map( (concert) => {
-            return <li key={concert.date}>{concert.date}</li>;
+            return <ConcertListItem key={concert.date}
+                                    concert={concert} />
           })}
         </ul>
       </div>
