@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 import ConcertListItem from 'components/concerts/ConcertListItem.jsx'
 import ConcertsRepository from 'data/ConcertsRepository.jsx'
 
@@ -12,6 +13,7 @@ export default class ConcertList extends React.Component {
     return (
       <div>
         <h1>Concert list</h1>
+        <Link to='/concerts/new'>Add New Concert</Link>
         <ul>
           {this.state.concerts.map( (concert) => {
             return <ConcertListItem key={concert.date}
