@@ -1,16 +1,11 @@
 import React from 'react'
 import ConcertListItem from './ConcertListItem.jsx'
-
-var concerts = [
-  {date: '1/12/2014', textPL: 'text PL 1', textEN: 'text EN 1'},
-  {date: '2/12/2014', textPL: 'text PL 2', textEN: 'text EN 2'},
-  {date: '3/12/2014', textPL: 'text PL 3', textEN: 'text EN 3'}
-]
+import ConcertsRepository from '../data/ConcertsRepository.jsx'
 
 export default class ConcertList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {concerts: concerts}
+    this.state = {concerts: new ConcertsRepository().all()}
   }
 
   render() {
