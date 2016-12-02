@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
-import ConcertListItem from 'components/concerts/ConcertListItem.jsx'
+import ConcertListItem from './ConcertListItem.jsx'
 import ConcertsRepository from 'data/ConcertsRepository.jsx'
 
 export default class ConcertList extends React.Component {

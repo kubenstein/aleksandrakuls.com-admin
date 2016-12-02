@@ -18,7 +18,7 @@ module.exports = {
   },
   resolve: {
     root: [
-      __dirname + '/src/components'
+      __dirname + '/src/'
     ]
   },
 }
