@@ -1,8 +1,8 @@
 import React from 'react'
 import { Router, Route, IndexRoute, Redirect, hashHistory } from 'react-router'
-import AppLayout from './AppLayout.jsx'
-import ConcertList from './ConcertList.jsx'
-import ConcertEditPage from './ConcertEditPage.jsx'
+import AppLayout from 'components/AppLayout.jsx'
+import ConcertList from 'components/concerts/ConcertList.jsx'
+import ConcertEditPage from 'components/concerts/ConcertEditPage.jsx'
 
 export default class App extends React.Component {
   render() {

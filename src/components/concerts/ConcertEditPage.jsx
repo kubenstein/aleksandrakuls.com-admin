@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import serialize from 'form-serialize'
-import ConcertsRepository from '../data/ConcertsRepository.jsx'
+import ConcertsRepository from 'data/ConcertsRepository.jsx'
 
 export default class ConcertEditPage extends React.Component {
   constructor(props) {
