@@ -1,35 +1,63 @@
-import React from 'react'
-import { Link } from 'react-router'
-import serialize from 'form-serialize'
+import React from 'react';
+import { Link } from 'react-router';
+import serialize from 'form-serialize';
 
 export default class ConcertAddPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {concert: {}}
+    this.state = { concert: {} };
   }
 
   submit(e) {
     e.preventDefault();
-    const {id, date, textPL, textEN} = serialize(this.refs.form, {hash: true});
-    const concert = {id, date, textPL, textEN}
+    const { id, date, textPL, textEN } = serialize(this.refs.form, { hash: true });
+    const concert = { id, date, textPL, textEN };
 
     // TODO: do something
-    console.log(concert)
+    console.log(concert);
   }
 
   render() {
-    const concert = this.state.concert
+    const concert = this.state.concert;
     return (
       <div>
         <h1>Add concert</h1>
-        <form autoComplete="off" onSubmit={(e) => { this.submit(e) }} ref='form'>
-          date    <input type="text" name="date" value={concert.date} onChange={() => {}} placeholder="date" /> <br />
-          textPL: <textarea name="textPL" value={concert.textPL} onChange={() => {}} placeholder="textPL" /> <br />
-          textEn: <textarea name="textEN" value={concert.textEN} onChange={() => {}} placeholder="textEN" /> <br />
+        <form autoComplete="off" onSubmit={(e) => { this.submit(e); }} ref="form">
+          date:
+          <input
+            type="text"
+            name="date"
+            value={concert.date}
+            onChange={() => {}}
+            placeholder="date"
+          />
+
+          <br />
+
+          textPL:
+          <textarea
+            name="textPL"
+            value={concert.textPL}
+            onChange={() => {}}
+            placeholder="textPL"
+          />
+
+          <br />
+
+          textEn:
+          <textarea
+            name="textEN"
+            value={concert.textEN}
+            onChange={() => {}}
+            placeholder="textEN"
+          />
+
+          <br />
+
           <input type="submit" value="Add" />
         </form>
-        <Link to='/concerts/'>Back</Link>
+        <Link to="/concerts/">Back</Link>
       </div>
-    )
+    );
   }
 }

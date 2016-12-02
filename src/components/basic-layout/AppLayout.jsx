@@ -1,6 +1,6 @@
-import React from 'react'
-import Footer from './Footer.jsx'
-import Header from './Header.jsx'
+import React from 'react';
+import Footer from './Footer.jsx';
+import Header from './Header.jsx';
 
 export default class AppLayout extends React.Component {
   render() {
@@ -10,6 +10,6 @@ export default class AppLayout extends React.Component {
         {this.props.children}
         <Footer />
       </div>
-    )
+    );
   }
 }
