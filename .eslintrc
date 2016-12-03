@@ -1,12 +1,14 @@
 {
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jasmine": true
   },
   "ecmaFeatures": {
     jsx: true
   },
-  "extends": "eslint-config-airbnb",
+  "plugins": ["jasmine"],
+  "extends": ["eslint-config-airbnb", "plugin:jasmine/recommended"],
   "rules": {
     "comma-dangle": 0,
     "class-methods-use-this": 0,

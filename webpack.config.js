@@ -11,13 +11,14 @@ module.exports = {
   },
 
   module: {
-    preLoaders: [
+    preLoaders: process.env.NODE_ENV !== 'production' ? [
       {
         test: /\.jsx$|\.js$/,
         loader: 'eslint-loader',
         include: __dirname + '/src',
       }
-    ],
+    ] : [],
+
     loaders: [
       {
         test: /(\.jsx|\.js)$/,
