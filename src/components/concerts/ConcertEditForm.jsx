@@ -13,11 +13,10 @@ export default class ConcertEditPage extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    const { id, date, textPL, textEN } = serialize(this.refs.form, { hash: true });
+    const { id, date, textPL, textEN } = serialize(this.form, { hash: true });
     const concert = { id, date, textPL, textEN };
 
     // TODO: do something
-    console.log(concert);
   }
 
   render() {
@@ -25,7 +24,7 @@ export default class ConcertEditPage extends React.Component {
     return (
       <div>
         <h1>Edit concert</h1>
-        <form autoComplete="off" onSubmit={(e) => { this.submit(e); }} ref="form">
+        <form onSubmit={(e) => { this.submit(e); }} ref={(c) => { this.form = c; }} >
           date:
           <input
             type="text"

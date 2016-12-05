@@ -15,9 +15,9 @@ export default class ConcertList extends React.Component {
         <h1>Concert list</h1>
         <Link to="/concerts/new">Add New Concert</Link>
         <ul>
-          { this.state.concerts.map(concert => {
-            return <ConcertListItem key={concert.date} concert={concert} />;
-          })}
+          { this.state.concerts.map(concert =>
+            <ConcertListItem key={concert.date} concert={concert} />
+          )}
         </ul>
       </div>
     );

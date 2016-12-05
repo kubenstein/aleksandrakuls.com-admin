@@ -5,17 +5,15 @@ import ConcertList from 'components/concerts/ConcertList.jsx';
 import ConcertEditForm from 'components/concerts/ConcertEditForm.jsx';
 import ConcertAddForm from 'components/concerts/ConcertAddForm.jsx';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <Router history={hashHistory}>
-        <Redirect from="/" to="/concerts" />
-        <Route path="/" component={AppLayout}>
-          <Route path="/concerts" component={ConcertList} />
-          <Route path="/concerts/new" component={ConcertAddForm} />
-          <Route path="/concerts/:concertId" component={ConcertEditForm} />
-        </Route>
-      </Router>
-    );
-  }
+export default function App() {
+  return (
+    <Router history={hashHistory}>
+      <Redirect from="/" to="/concerts" />
+      <Route path="/" component={AppLayout}>
+        <Route path="/concerts" component={ConcertList} />
+        <Route path="/concerts/new" component={ConcertAddForm} />
+        <Route path="/concerts/:concertId" component={ConcertEditForm} />
+      </Route>
+    </Router>
+  );
 }
