@@ -2,16 +2,46 @@ const expect = require('chai').expect;
 
 describe('User', () => {
   it('can see concert list', () => {
-    browser.url('/');
-
-    expect(browser.getText('body')).to.include('Concert list');
-    expect(browser.getText('body')).to.include('concert text PL 1');
+    whenVisitingConcertPage();
+    userCanSeeConcertList();
   });
 
-  it('can see new concert form', () => {
+  xit('can add new concert', () => {
+    whenVisitingConcertAddPage();
+    addSubmittingAConcertForm('New Concert title');
+    userCanSeeTheConcert('new Concert title');
+  });
+
+
+  // private
+
+  function whenVisitingConcertPage() {
     browser.url('/');
+  }
+
+  function whenVisitingConcertAddPage() {
+    whenVisitingConcertPage();
     browser.click('a*=Add New Concert');
+    userWillSeeTheForm();
+  }
 
-    expect(browser.getText('body')).to.include('Add concert Form');
-  });
+  function addSubmittingAConcertForm(concertTitle) {
+    browser.setValue('input[name=date]', '15/12/2016');
+    browser.setValue('textarea[name=textPL]', concertTitle);
+    browser.setValue('textarea[name=textEN]', concertTitle);
+    browser.submitForm('#addConcertForm');
+  }
+
+  function userCanSeeTheConcert(concertTitle) {
+    whenVisitingConcertPage();
+    expect($('body').getText()).to.include(concertTitle);
+  }
+
+  function userCanSeeConcertList() {
+    expect($('body').getText()).to.include('Concert list');
+  }
+
+  function userWillSeeTheForm() {
+    expect($('body').getText()).to.include('Add concert Form');
+  }
 });

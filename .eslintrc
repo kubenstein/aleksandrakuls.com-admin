@@ -17,10 +17,12 @@
     "import/extensions": 0,
     "react/prop-types": 0,
     "react/no-find-dom-node": 1,
+    "no-use-before-define": 1,
     "no-unused-vars": 1,
     "max-len": [2, { "code": 120, "ignoreComments": true}]
   },
   "globals": {
-    "browser": true
+    "browser": true,
+    "$": true
   }
 }

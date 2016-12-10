@@ -21,7 +21,7 @@ export default class ConcertAddPage extends React.Component {
     return (
       <div>
         <h1>Add concert Form</h1>
-        <form onSubmit={(e) => { this.submit(e); }} ref={(c) => { this.form = c; }} >
+        <form id="addConcertForm" onSubmit={(e) => { this.submit(e); }} ref={(c) => { this.form = c; }} >
           date:
           <input
             type="text"
