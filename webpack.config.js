@@ -1,4 +1,5 @@
 var webpack = require('webpack')
+var CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -43,6 +44,11 @@ module.exports = {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/
+    })
   ] : [],
 
 }
