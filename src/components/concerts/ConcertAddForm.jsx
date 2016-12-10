@@ -20,7 +20,7 @@ export default class ConcertAddPage extends React.Component {
     const concert = this.state.concert;
     return (
       <div>
-        <h1>Add concert</h1>
+        <h1>Add concert Form</h1>
         <form onSubmit={(e) => { this.submit(e); }} ref={(c) => { this.form = c; }} >
           date:
           <input
