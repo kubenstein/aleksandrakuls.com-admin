@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const chai = require('chai');
 const httpServer = require('http-server');
 
@@ -86,7 +88,7 @@ exports.config = {
   // Services take over a specfic job you don't want to take care of. They enhance
   // your test setup with almost no self effort. Unlike plugins they don't add new
   // commands but hook themself up into the test process.
-  services: ['selenium-standalone', 'phantomjs'],
+  services: ['phantomjs'],
   // Framework you want to run your specs with.
   // The following are supported: mocha, jasmine and cucumber
   // see also: http://webdriver.io/guide/testrunner/frameworks.html

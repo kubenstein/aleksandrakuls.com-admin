@@ -8,7 +8,7 @@ describe('Concerts', () => {
   let element;
 
   beforeEach(() => {
-    let instance = TestUtils.renderIntoDocument(<ConcertList />);
+    const instance = TestUtils.renderIntoDocument(<ConcertList />);
     element = ReactDOM.findDOMNode(instance);
   });
 

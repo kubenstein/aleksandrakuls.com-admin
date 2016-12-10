@@ -6,7 +6,7 @@
   "scripts": {
     "tests:unit": "./spec/unit/start.sh",
     "tests:e2e": "./spec/e2e/start.sh",
-    "lint": "eslint -c .eslintrc './src/**' './test/**'",
+    "lint": "eslint -c .eslintrc './src/**' './spec/**'",
     "dev": "webpack-dev-server",
     "build": "webpack -p",
     "postinstall": "npm run build"
@@ -36,7 +36,6 @@
     "eslint-config-airbnb": "latest",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-import": "latest",
-    "eslint-plugin-jasmine": "^2.2.0",
     "eslint-plugin-jsx-a11y": "2.x",
     "eslint-plugin-react": "latest",
     "http-server": "^0.9.0",
@@ -56,7 +55,6 @@
     "react-addons-test-utils": "^15.4.1",
     "wdio-mocha-framework": "^0.5.4",
     "wdio-phantomjs-service": "^0.2.2",
-    "wdio-selenium-standalone-service": "0.0.7",
     "wdio-spec-reporter": "0.0.3",
     "webdriverio": "^4.4.0",
     "webpack-dev-server": "^1.16.2"

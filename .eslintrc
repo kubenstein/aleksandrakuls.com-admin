@@ -16,6 +16,11 @@
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "react/prop-types": 0,
-    "no-unused-vars": 1
+    "react/no-find-dom-node": 1,
+    "no-unused-vars": 1,
+    "max-len": [2, { "code": 120, "ignoreComments": true}]
+  },
+  "globals": {
+    "browser": true
   }
 }

@@ -1,9 +1,10 @@
+/* eslint-disable */
 //
 // Taken from:
 // https://github.com/krasimir/react-webpack-starter
 //
 
-var webpackConfig = require('../../webpack.config');
+const webpackConfig = require('../../webpack.config');
 
 module.exports = function (config) {
   config.set({
