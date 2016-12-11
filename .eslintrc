@@ -8,18 +8,20 @@
     jsx: true
   },
   "plugins": ["jasmine"],
-  "extends": ["eslint-config-airbnb", "plugin:jasmine/recommended"],
+  "extends": ["eslint-config-airbnb"],
   "rules": {
     "comma-dangle": 0,
     "class-methods-use-this": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "import/extensions": 0,
+    "import/prefer-default-export": 0,
+    "object-shorthand": [2, "consistent"],
     "react/prop-types": 0,
     "react/no-find-dom-node": 1,
     "no-use-before-define": 1,
     "no-unused-vars": 1,
-    "max-len": [2, { "code": 120, "ignoreComments": true}]
+    "max-len": [2, {"code": 120, "ignoreComments": true}]
   },
   "globals": {
     "browser": true,

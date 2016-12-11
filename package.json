@@ -27,7 +27,10 @@
     "http-server": "^0.9.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0",
     "webpack": "^1.13.3"
   },
   "devDependencies": {
@@ -36,6 +39,7 @@
     "eslint-config-airbnb": "latest",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-import": "latest",
+    "eslint-plugin-jasmine": "^2.2.0",
     "eslint-plugin-jsx-a11y": "2.x",
     "eslint-plugin-react": "latest",
     "http-server": "^0.9.0",
