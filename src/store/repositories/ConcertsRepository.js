@@ -11,6 +11,15 @@ export default class ConcertsRepository {
     });
   }
 
+  empty() {
+    return {
+      id: '-1',
+      date: '',
+      textPL: '',
+      textEN: ''
+    };
+  }
+
   find(id) {
     return new Promise((resolve) => {
       this.all().then((concerts) => {

@@ -1,14 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router';
 import serialize from 'form-serialize';
-import ConcertsRepository from 'data/ConcertsRepository.jsx';
+import ConcertsRepository from 'store/repositories/ConcertsRepository.js';
 
 export default class ConcertEditPage extends React.Component {
   constructor(props) {
     super(props);
+    const repo = new ConcertsRepository();
+    this.state = { concert: repo.empty() };
 
     const id = this.props.params.concertId;
-    this.state = { concert: new ConcertsRepository().find(id) };
+    repo.find(id).then((concert) => {
+      this.setState({
+        concert: concert
+      });
+    });
   }
 
   submit(e) {
