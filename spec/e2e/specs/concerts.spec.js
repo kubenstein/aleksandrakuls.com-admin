@@ -6,10 +6,10 @@ describe('User', () => {
     userCanSeeConcertList();
   });
 
-  xit('can add new concert', () => {
+  it('can add new concert', () => {
     whenVisitingConcertAddPage();
-    addSubmittingAConcertForm('New Concert title');
-    userCanSeeTheConcert('new Concert title');
+    addSubmittingAConcertForm('Just added Concert title');
+    userCanSeeTheConcert('Just added Concert title');
   });
 
 

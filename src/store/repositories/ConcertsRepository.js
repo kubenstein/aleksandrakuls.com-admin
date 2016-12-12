@@ -1,14 +1,8 @@
-const concertsDb = [
-  { id: '1', date: '1/12/2014', textPL: 'concert text PL 1', textEN: 'concert text EN 1' },
-  { id: '2', date: '2/12/2014', textPL: 'concert text PL 2', textEN: 'concert text EN 2' },
-  { id: '3', date: '3/12/2014', textPL: 'concert text PL 3', textEN: 'concert text EN 3' }
-];
+import MemoryAdapter from 'store/adapters/memory-adapter.js';
 
 export default class ConcertsRepository {
-  all() {
-    return new Promise((resolve) => {
-      resolve(concertsDb);
-    });
+  constructor() {
+    this.adapter = new MemoryAdapter();
   }
 
   empty() {
@@ -20,12 +14,19 @@ export default class ConcertsRepository {
     };
   }
 
+  all() {
+    return this.adapter.all('concerts');
+  }
+
+  add(concert) {
+    return this.adapter.add('concerts', concert);
+  }
+
+  update(concert) {
+    return this.adapter.update('concerts', concert);
+  }
+
   find(id) {
-    return new Promise((resolve) => {
-      this.all().then((concerts) => {
-        const concert = concerts.find(aConcert => aConcert.id === id);
-        resolve(concert);
-      });
-    });
+    return this.adapter.find('concerts', id);
   }
 }

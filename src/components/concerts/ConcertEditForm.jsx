@@ -1,28 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import serialize from 'form-serialize';
 import ConcertsRepository from 'store/repositories/ConcertsRepository.js';
 
 export default class ConcertEditPage extends React.Component {
   constructor(props) {
     super(props);
-    const repo = new ConcertsRepository();
-    this.state = { concert: repo.empty() };
+    this.repo = new ConcertsRepository();
+    this.state = { concert: this.repo.empty() };
 
     const id = this.props.params.concertId;
-    repo.find(id).then((concert) => {
-      this.setState({
-        concert: concert
-      });
+    this.fetchConcert(id);
+  }
+
+  fetchConcert(id) {
+    this.repo.find(id).then((concert) => {
+      this.setState({ concert: concert });
     });
+  }
+
+  formUpdated() {
+    const { id, date, textPL, textEN } = serialize(this.form, { hash: true });
+    const concert = { id, date, textPL, textEN };
+    this.setState({ concert: concert });
   }
 
   submit(e) {
     e.preventDefault();
-    const { id, date, textPL, textEN } = serialize(this.form, { hash: true });
-    const concert = { id, date, textPL, textEN };
-
-    // TODO: do something
+    const concert = this.state.concert;
+    this.repo.update(concert).then(() => {
+      hashHistory.push('/concerts/');
+    });
   }
 
   render() {
@@ -30,13 +38,13 @@ export default class ConcertEditPage extends React.Component {
     return (
       <div>
         <h1>Edit concert</h1>
-        <form onSubmit={(e) => { this.submit(e); }} ref={(c) => { this.form = c; }} >
+        <form id="editConcertForm" onSubmit={(e) => { this.submit(e); }} ref={(c) => { this.form = c; }} >
           date:
           <input
-            type="text"
+            type="date"
             name="date"
             value={concert.date}
-            onChange={() => {}}
+            onChange={() => { this.formUpdated(); }}
             placeholder="date"
           />
 
@@ -46,7 +54,7 @@ export default class ConcertEditPage extends React.Component {
           <textarea
             name="textPL"
             value={concert.textPL}
-            onChange={() => {}}
+            onChange={() => { this.formUpdated(); }}
             placeholder="textPL"
           />
 
@@ -56,7 +64,7 @@ export default class ConcertEditPage extends React.Component {
           <textarea
             name="textEN"
             value={concert.textEN}
-            onChange={() => {}}
+            onChange={() => { this.formUpdated(); }}
             placeholder="textEN"
           />
 

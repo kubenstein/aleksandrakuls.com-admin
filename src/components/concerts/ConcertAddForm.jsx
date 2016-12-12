@@ -1,19 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import serialize from 'form-serialize';
+import ConcertsRepository from 'store/repositories/ConcertsRepository.js';
 
 export default class ConcertAddPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { concert: {} };
+    this.repo = new ConcertsRepository();
+    this.state = { concert: this.repo.empty() };
+  }
+
+  formUpdated() {
+    const {date, textPL, textEN } = serialize(this.form, { hash: true });
+    const concert = {date, textPL, textEN };
+    this.setState({ concert: concert });
   }
 
   submit(e) {
     e.preventDefault();
-    const { id, date, textPL, textEN } = serialize(this.form, { hash: true });
-    const concert = { id, date, textPL, textEN };
-
-    // TODO: do something
+    const concert = this.state.concert;
+    this.repo.add(concert).then(() => {
+      hashHistory.push('/concerts/');
+    });
   }
 
   render() {
@@ -24,10 +32,9 @@ export default class ConcertAddPage extends React.Component {
         <form id="addConcertForm" onSubmit={(e) => { this.submit(e); }} ref={(c) => { this.form = c; }} >
           date:
           <input
-            type="text"
+            type="date"
             name="date"
-            value={concert.date}
-            onChange={() => {}}
+            onChange={() => { this.formUpdated(); }}
             placeholder="date"
           />
 
@@ -37,7 +44,7 @@ export default class ConcertAddPage extends React.Component {
           <textarea
             name="textPL"
             value={concert.textPL}
-            onChange={() => {}}
+            onChange={() => { this.formUpdated(); }}
             placeholder="textPL"
           />
 
@@ -47,7 +54,7 @@ export default class ConcertAddPage extends React.Component {
           <textarea
             name="textEN"
             value={concert.textEN}
-            onChange={() => {}}
+            onChange={() => { this.formUpdated(); }}
             placeholder="textEN"
           />
 
