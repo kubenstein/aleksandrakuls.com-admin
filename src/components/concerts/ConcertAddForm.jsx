@@ -11,8 +11,8 @@ export default class ConcertAddPage extends React.Component {
   }
 
   formUpdated() {
-    const {date, textPL, textEN } = serialize(this.form, { hash: true });
-    const concert = {date, textPL, textEN };
+    const { date, textPL, textEN } = serialize(this.form, { hash: true });
+    const concert = { date, textPL, textEN };
     this.setState({ concert: concert });
   }
 

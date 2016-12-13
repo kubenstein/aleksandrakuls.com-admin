@@ -35,13 +35,12 @@ exports.config = {
   // https://docs.saucelabs.com/reference/platforms-configurator
   //
   capabilities: [{
-    browserName: 'phantomjs' // chrome / phantomjs
-  }],
-  //
-  // ===================
-  // Test Configurations
-  // ===================
-  // Define all options that are relevant for the WebdriverIO instance here
+    browserName: 'chrome' // chrome / phantomjs
+  }],  
+  // Services take over a specfic job you don't want to take care of. They enhance
+  // your test setup with almost no self effort. Unlike plugins they don't add new
+  // commands but hook themself up into the test process.
+  services: ['selenium-standalone'], // selenium-standalone / phantomjs
   //
   // Level of logging verbosity: silent | verbose | command | data | result | error
   // logLevel: 'verbose',
@@ -84,11 +83,6 @@ exports.config = {
   //   browserevent: {}
   // },
   //
-  // Test runner services
-  // Services take over a specfic job you don't want to take care of. They enhance
-  // your test setup with almost no self effort. Unlike plugins they don't add new
-  // commands but hook themself up into the test process.
-  services: ['phantomjs'],
   // Framework you want to run your specs with.
   // The following are supported: mocha, jasmine and cucumber
   // see also: http://webdriver.io/guide/testrunner/frameworks.html

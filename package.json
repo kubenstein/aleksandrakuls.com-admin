@@ -60,6 +60,7 @@
     "react-addons-test-utils": "^15.4.1",
     "wdio-mocha-framework": "^0.5.4",
     "wdio-phantomjs-service": "^0.2.2",
+    "wdio-selenium-standalone-service": "0.0.7",
     "wdio-spec-reporter": "0.0.3",
     "webdriverio": "^4.4.0",
     "webpack-dev-server": "^1.16.2"

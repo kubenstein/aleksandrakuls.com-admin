@@ -26,7 +26,10 @@ describe('User', () => {
   }
 
   function addSubmittingAConcertForm(concertTitle) {
-    browser.setValue('input[name=date]', '15/12/2016');
+    browser.selectorExecute('input[name=date]', (elements) => {
+      const element = elements[0];
+      element.value = '2014-12-02';
+    });
     browser.setValue('textarea[name=textPL]', concertTitle);
     browser.setValue('textarea[name=textEN]', concertTitle);
     browser.submitForm('#addConcertForm');
