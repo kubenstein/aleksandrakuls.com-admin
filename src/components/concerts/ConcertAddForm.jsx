@@ -17,10 +17,6 @@ class ConcertAddPage extends React.Component {
     this.setState({ concert: concert });
   }
 
-  afterSuccesfulSubmission() {
-    hashHistory.push('/concerts/');
-  }
-
   submit(e) {
     e.preventDefault();
     const concert = this.state.concert;
