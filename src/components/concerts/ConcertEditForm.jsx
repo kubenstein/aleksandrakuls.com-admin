@@ -38,36 +38,22 @@ export default class ConcertEditPage extends React.Component {
     return (
       <div>
         <h1>Edit concert</h1>
-        <form id="editConcertForm" onSubmit={(e) => { this.submit(e); }} ref={(c) => { this.form = c; }} >
+        <form
+          id="editConcertForm"
+          onChange={() => { this.formUpdated(); }}
+          onSubmit={(e) => { this.submit(e); }}
+          ref={(f) => { this.form = f; }}
+        >
           date:
-          <input
-            type="date"
-            name="date"
-            value={concert.date}
-            onChange={() => { this.formUpdated(); }}
-            placeholder="date"
-          />
-
+          <input type="date" name="date" value={concert.date} placeholder="date" />
           <br />
 
           textPL:
-          <textarea
-            name="textPL"
-            value={concert.textPL}
-            onChange={() => { this.formUpdated(); }}
-            placeholder="textPL"
-          />
-
+          <textarea name="textPL" value={concert.textPL} placeholder="textPL" />
           <br />
 
           textEn:
-          <textarea
-            name="textEN"
-            value={concert.textEN}
-            onChange={() => { this.formUpdated(); }}
-            placeholder="textEN"
-          />
-
+          <textarea name="textEN" value={concert.textEN} placeholder="textEN" />
           <br />
 
           <input type="hidden" name="id" value={concert.id} />

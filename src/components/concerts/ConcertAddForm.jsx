@@ -34,35 +34,22 @@ class ConcertAddPage extends React.Component {
     return (
       <div>
         <h1>Add concert Form</h1>
-        <form id="addConcertForm" onSubmit={(e) => { this.submit(e); }} ref={(c) => { this.form = c; }} >
+        <form
+          id="addConcertForm"
+          onChange={() => { this.formUpdated(); }}
+          onSubmit={(e) => { this.submit(e); }}
+          ref={(f) => { this.form = f; }}
+        >
           date:
-          <input
-            type="date"
-            name="date"
-            onChange={() => { this.formUpdated(); }}
-            placeholder="date"
-          />
-
+          <input type="date" name="date" placeholder="date" />
           <br />
 
           textPL:
-          <textarea
-            name="textPL"
-            value={concert.textPL}
-            onChange={() => { this.formUpdated(); }}
-            placeholder="textPL"
-          />
-
+          <textarea name="textPL" value={concert.textPL} placeholder="textPL" />
           <br />
 
           textEn:
-          <textarea
-            name="textEN"
-            value={concert.textEN}
-            onChange={() => { this.formUpdated(); }}
-            placeholder="textEN"
-          />
-
+          <textarea name="textEN" value={concert.textEN} placeholder="textEN" />
           <br />
 
           <input type="submit" value="Add" />
