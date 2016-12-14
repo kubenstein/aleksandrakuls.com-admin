@@ -8,7 +8,7 @@ describe('User', () => {
 
   it('can add new concert', () => {
     whenVisitingConcertAddPage();
-    addSubmittingAConcertForm('Just added Concert title');
+    andSubmittingAConcertForm('Just added Concert title');
     userCanSeeTheConcert('Just added Concert title');
   });
 
@@ -25,10 +25,10 @@ describe('User', () => {
     userWillSeeTheForm();
   }
 
-  function addSubmittingAConcertForm(concertTitle) {
+  function andSubmittingAConcertForm(concertTitle) {
     browser.selectorExecute('input[name=date]', (elements) => {
       const element = elements[0];
-      element.value = '2014-12-02';
+      element.value = '2016-12-02';
     });
     browser.setValue('textarea[name=textPL]', concertTitle);
     browser.setValue('textarea[name=textEN]', concertTitle);
@@ -36,7 +36,6 @@ describe('User', () => {
   }
 
   function userCanSeeTheConcert(concertTitle) {
-    whenVisitingConcertPage();
     expect($('body').getText()).to.include(concertTitle);
   }
 

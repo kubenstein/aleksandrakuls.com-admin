@@ -6,10 +6,19 @@ const initialState = {
 
 export default (state = initialState, action = null) => {
   switch (action.type) {
-    case ConcertsEvents.FETCHED:
+    case ConcertsEvents.FETCHED: {
       return Object.assign({}, state, {
         concerts: action.payload.concerts,
       });
+    }
+
+    case ConcertsEvents.ADDED: {
+      const concerts = state.concerts;
+      concerts.push(action.payload.concert);
+      return Object.assign({}, state, {
+        concerts: concerts
+      });
+    }
 
     default:
       return state;

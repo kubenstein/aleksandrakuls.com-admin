@@ -5,3 +5,11 @@ export const fetched = concerts => ({
     concerts: concerts
   }
 });
+
+export const ADDED = 'concertAdded';
+export const added = concert => ({
+  type: ADDED,
+  payload: {
+    concert: concert
+  }
+});

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
+import { connect } from 'react-redux';
 import serialize from 'form-serialize';
-import ConcertsRepository from 'store/repositories/ConcertsRepository.js';
+import ConcertsRepository from 'store/repositories/concerts-repository.js';
+import { addConcert } from 'actions/add-concert';
 
-export default class ConcertAddPage extends React.Component {
+class ConcertAddPage extends React.Component {
   constructor(props) {
     super(props);
-    this.repo = new ConcertsRepository();
-    this.state = { concert: this.repo.empty() };
+    this.state = { concert: new ConcertsRepository().empty() };
   }
 
   formUpdated() {
@@ -16,10 +17,14 @@ export default class ConcertAddPage extends React.Component {
     this.setState({ concert: concert });
   }
 
+  afterSuccesfulSubmission() {
+    hashHistory.push('/concerts/');
+  }
+
   submit(e) {
     e.preventDefault();
     const concert = this.state.concert;
-    this.repo.add(concert).then(() => {
+    addConcert(concert, this.props.dispatch).then(() => {
       hashHistory.push('/concerts/');
     });
   }
@@ -67,3 +72,5 @@ export default class ConcertAddPage extends React.Component {
     );
   }
 }
+
+export default connect()(ConcertAddPage);
