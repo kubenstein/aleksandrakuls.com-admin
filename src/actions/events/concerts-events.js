@@ -13,3 +13,12 @@ export const added = concert => ({
     concert: concert
   }
 });
+
+export const UPDATED = 'concertUpdated';
+export const updated = concert => ({
+  type: UPDATED,
+  payload: {
+    concert: concert
+  }
+});
+

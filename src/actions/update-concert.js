@@ -1,8 +1,8 @@
 import * as ConcertsEvents from './events/concerts-events';
 
-export default function addConcert(concert, dispatch) {
+export default function updateConcert(concert, dispatch) {
   return new Promise((resolve) => {
-    dispatch(ConcertsEvents.added(concert));
+    dispatch(ConcertsEvents.updated(concert));
     resolve(concert);
   });
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import values from 'lodash/values';
 import ConcertListItem from './ConcertListItem.jsx';
 
 function ConcertList(props) {
@@ -20,7 +21,7 @@ function ConcertList(props) {
 
 function mapStateToProps(state) {
   return {
-    concerts: state.concertsState.concerts
+    concerts: values(state.concertsState.concerts)
   };
 }
 

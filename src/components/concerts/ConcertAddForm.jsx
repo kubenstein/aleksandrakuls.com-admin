@@ -2,13 +2,12 @@ import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import serialize from 'form-serialize';
-import ConcertsRepository from 'store/repositories/concerts-repository.js';
-import { addConcert } from 'actions/add-concert';
+import addConcert from 'actions/add-concert';
 
 class ConcertAddPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { concert: new ConcertsRepository().empty() };
+    this.state = { concert: {} };
   }
 
   formUpdated() {

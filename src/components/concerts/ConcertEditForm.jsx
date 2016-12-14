@@ -1,22 +1,17 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
+import { connect } from 'react-redux';
 import serialize from 'form-serialize';
-import ConcertsRepository from 'store/repositories/concerts-repository.js';
+import updateConcert from 'actions/update-concert';
 
-export default class ConcertEditPage extends React.Component {
+class ConcertEditPage extends React.Component {
   constructor(props) {
     super(props);
-    this.repo = new ConcertsRepository();
-    this.state = { concert: this.repo.empty() };
-
-    const id = this.props.params.concertId;
-    this.fetchConcert(id);
+    this.state = { concert: undefined };
   }
 
-  fetchConcert(id) {
-    this.repo.find(id).then((concert) => {
-      this.setState({ concert: concert });
-    });
+  componentWillReceiveProps(nextProps) {
+    this.setState({ concert: nextProps.concert });
   }
 
   formUpdated() {
@@ -28,32 +23,45 @@ export default class ConcertEditPage extends React.Component {
   submit(e) {
     e.preventDefault();
     const concert = this.state.concert;
-    this.repo.update(concert).then(() => {
+    updateConcert(concert, this.props.dispatch).then(() => {
       hashHistory.push('/concerts/');
     });
   }
 
   render() {
     const concert = this.state.concert;
+    if (!concert) return null;
+
     return (
       <div>
         <h1>Edit concert</h1>
-        <form
-          id="editConcertForm"
-          onChange={() => { this.formUpdated(); }}
-          onSubmit={(e) => { this.submit(e); }}
-          ref={(f) => { this.form = f; }}
-        >
+        <form id="editConcertForm" onSubmit={(e) => { this.submit(e); }} ref={(f) => { this.form = f; }} >
           date:
-          <input type="date" name="date" value={concert.date} placeholder="date" />
+          <input
+            type="date"
+            name="date"
+            value={concert.date}
+            placeholder="date"
+            onChange={() => { this.formUpdated(); }}
+          />
           <br />
 
           textPL:
-          <textarea name="textPL" value={concert.textPL} placeholder="textPL" />
+          <textarea
+            name="textPL"
+            value={concert.textPL}
+            placeholder="textPL"
+            onChange={() => { this.formUpdated(); }}
+          />
           <br />
 
           textEn:
-          <textarea name="textEN" value={concert.textEN} placeholder="textEN" />
+          <textarea
+            name="textEN"
+            value={concert.textEN}
+            placeholder="textEN"
+            onChange={() => { this.formUpdated(); }}
+          />
           <br />
 
           <input type="hidden" name="id" value={concert.id} />
@@ -64,3 +72,18 @@ export default class ConcertEditPage extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state, ownProps) {
+  const concertId = ownProps.params.concertId;
+  return {
+    concert: findConcert(concertId, state.concertsState.concerts)
+  };
+}
+
+function findConcert(id, concerts) {
+  return concerts[id];
+}
+
+export default connect(
+  mapStateToProps
+)(ConcertEditPage);

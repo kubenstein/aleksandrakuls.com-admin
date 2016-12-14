@@ -12,6 +12,11 @@ describe('User', () => {
     userCanSeeTheConcert('Just added Concert title');
   });
 
+  xit('can edit a concert', () => {
+    whenVisitingConcertEditPage();
+    andSubmittingAConcertForm('Just edited Concert title');
+    userCanSeeTheConcert('Just edited Concert title');
+  });
 
   // private
 
