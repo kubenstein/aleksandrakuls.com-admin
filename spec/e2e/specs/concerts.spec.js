@@ -12,8 +12,8 @@ describe('User', () => {
     userCanSeeTheConcert('Just added Concert title');
   });
 
-  xit('can edit a concert', () => {
-    whenVisitingConcertEditPage();
+  it('can edit a concert', () => {
+    whenCreatingAndGoingToConcertEditPage('concert to edit');
     andSubmittingAConcertForm('Just edited Concert title');
     userCanSeeTheConcert('Just edited Concert title');
   });
@@ -30,6 +30,13 @@ describe('User', () => {
     userWillSeeTheForm();
   }
 
+  function whenCreatingAndGoingToConcertEditPage(concertTitle) {
+    whenVisitingConcertAddPage();
+    andSubmittingAConcertForm(concertTitle);
+    userCanSeeConcertList();
+    browser.click('a*='+ concertTitle);
+  }
+
   function andSubmittingAConcertForm(concertTitle) {
     browser.selectorExecute('input[name=date]', (elements) => {
       const element = elements[0];
@@ -37,7 +44,7 @@ describe('User', () => {
     });
     browser.setValue('textarea[name=textPL]', concertTitle);
     browser.setValue('textarea[name=textEN]', concertTitle);
-    browser.submitForm('#addConcertForm');
+    browser.submitForm('#concertForm');
   }
 
   function userCanSeeTheConcert(concertTitle) {

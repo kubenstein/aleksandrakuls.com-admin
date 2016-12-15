@@ -30,7 +30,7 @@ class ConcertAddPage extends React.Component {
       <div>
         <h1>Add concert Form</h1>
         <form
-          id="addConcertForm"
+          id="concertForm"
           onChange={() => { this.formUpdated(); }}
           onSubmit={(e) => { this.submit(e); }}
           ref={(f) => { this.form = f; }}

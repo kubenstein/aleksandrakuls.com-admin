@@ -10,7 +10,7 @@ export default (state = initialState, action = null) => {
     case ConcertsEvents.FETCHED: {
       const fetchedConcerts = action.payload.concerts;
       const updatedConcerts = Object.assign({}, state.concerts);
-      fetchedConcerts.forEach((c) => {
+      foreach(fetchedConcerts, (c) => {
         updatedConcerts[c.id] = c;
       });
       return Object.assign({}, state, {
@@ -19,10 +19,20 @@ export default (state = initialState, action = null) => {
     }
 
     case ConcertsEvents.ADDED: {
-      const concerts = state.concerts;
-      concerts.push(action.payload.concert);
+      const concert = action.payload.concert;
+      const updatedConcerts = Object.assign({}, state.concerts);
+      updatedConcerts[concert.id] = concert;
       return Object.assign({}, state, {
-        concerts: concerts
+        concerts: updatedConcerts
+      });
+    }
+
+    case ConcertsEvents.UPDATED: {
+      const concert = action.payload.concert;
+      const updatedConcerts = Object.assign({}, state.concerts);
+      updatedConcerts[concert.id] = concert;
+      return Object.assign({}, state, {
+        concerts: updatedConcerts
       });
     }
 

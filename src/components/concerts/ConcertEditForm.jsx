@@ -35,7 +35,7 @@ class ConcertEditPage extends React.Component {
     return (
       <div>
         <h1>Edit concert</h1>
-        <form id="editConcertForm" onSubmit={(e) => { this.submit(e); }} ref={(f) => { this.form = f; }} >
+        <form id="concertForm" onSubmit={(e) => { this.submit(e); }} ref={(f) => { this.form = f; }} >
           date:
           <input
             type="date"
