@@ -1,10 +1,11 @@
 import * as ConcertsEvents from './events/concerts-events';
+import ConcertValidator from './validators/concert-validator';
 
 export default function addConcert(concert, dispatch) {
   const concertToAdd = concert;
-  return new Promise((resolve) => {
-    concertToAdd.id = Math.random().toString();
-    dispatch(ConcertsEvents.added(concertToAdd));
-    resolve(concertToAdd);
+  concertToAdd.id = Math.random().toString();
+
+  return new ConcertValidator(concert).validate().then((validConcert) => {
+    dispatch(ConcertsEvents.added(validConcert));
   });
 }

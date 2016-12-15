@@ -7,11 +7,19 @@ import updateConcert from 'actions/update-concert';
 class ConcertEditPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { concert: undefined };
+    this.state = { concert: undefined, errors: [] };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ concert: nextProps.concert });
+  }
+
+  onSuccess() {
+    hashHistory.push('/concerts/');
+  }
+
+  onFail(errors) {
+    this.setState({ errors: errors });
   }
 
   formUpdated() {
@@ -23,18 +31,31 @@ class ConcertEditPage extends React.Component {
   submit(e) {
     e.preventDefault();
     const concert = this.state.concert;
-    updateConcert(concert, this.props.dispatch).then(() => {
-      hashHistory.push('/concerts/');
-    });
+    updateConcert(concert, this.props.dispatch).then(
+      () => { this.onSuccess(); },
+      (errors) => { this.onFail(errors); }
+    );
   }
 
   render() {
     const concert = this.state.concert;
+    const errors = this.state.errors;
     if (!concert) return null;
 
     return (
       <div>
         <h1>Edit concert</h1>
+        {errors.length ?
+          <div>
+            <p>Errors:</p>
+            <ul>
+              { errors.map(error =>
+                <li key={error}>{error}</li>
+              )}
+            </ul>
+          </div>
+          : ''
+        }
         <form id="concertForm" onSubmit={(e) => { this.submit(e); }} ref={(f) => { this.form = f; }} >
           date:
           <input

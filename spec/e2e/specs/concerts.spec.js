@@ -6,16 +6,28 @@ describe('User', () => {
     userCanSeeConcertList();
   });
 
-  it('can add new concert', () => {
+  it('can add a new concert', () => {
     whenVisitingConcertAddPage();
     andSubmittingAConcertForm('Just added Concert title');
     userCanSeeTheConcert('Just added Concert title');
+  });
+
+  it('can not add an invalid concert', () => {
+    whenVisitingConcertAddPage();
+    andSubmittingAConcertForm('');
+    userCanSee('Polish text cant be empty');
   });
 
   it('can edit a concert', () => {
     whenCreatingAndGoingToConcertEditPage('concert to edit');
     andSubmittingAConcertForm('Just edited Concert title');
     userCanSeeTheConcert('Just edited Concert title');
+  });
+
+  it('can not wrongly edit a concert', () => {
+    whenCreatingAndGoingToConcertEditPage('concert to edit');
+    andSubmittingAConcertForm('');
+    userCanSee('Polish text cant be empty');
   });
 
   // private
@@ -48,14 +60,18 @@ describe('User', () => {
   }
 
   function userCanSeeTheConcert(concertTitle) {
-    expect($('body').getText()).to.include(concertTitle);
+    userCanSee(concertTitle);
   }
 
   function userCanSeeConcertList() {
-    expect($('body').getText()).to.include('Concert list');
+    userCanSee('Concert list');
   }
 
   function userWillSeeTheForm() {
-    expect($('body').getText()).to.include('Add concert Form');
+    userCanSee('Add concert Form');
   }
+
+  function userCanSee(text) {
+    expect($('body').getText()).to.include(text);
+  }    
 });
