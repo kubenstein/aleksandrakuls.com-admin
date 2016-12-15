@@ -1,4 +1,4 @@
-import foreach from 'lodash/foreach';
+import { forEach } from 'lodash';
 import * as ConcertsEvents from 'actions/events/concerts-events';
 
 const initialState = {
@@ -10,7 +10,7 @@ export default (state = initialState, action = null) => {
     case ConcertsEvents.FETCHED: {
       const fetchedConcerts = action.payload.concerts;
       const updatedConcerts = Object.assign({}, state.concerts);
-      foreach(fetchedConcerts, (c) => {
+      forEach(fetchedConcerts, (c) => {
         updatedConcerts[c.id] = c;
       });
       return Object.assign({}, state, {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import values from 'lodash/values';
+import { values } from 'lodash';
 import ConcertListItem from './ConcertListItem.jsx';
 
 function ConcertList(props) {
