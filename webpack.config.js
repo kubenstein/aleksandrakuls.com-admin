@@ -1,6 +1,8 @@
 var webpack = require('webpack')
 var CompressionPlugin = require('compression-webpack-plugin')
 
+var rootDir = __dirname + '/src/';
+
 module.exports = {
   entry: './src/index.js',
 
@@ -26,13 +28,21 @@ module.exports = {
         query: {
           presets: ['stage-0', 'es2015', 'react']
         }
+      },
+      { 
+        test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$/,
+        loader: 'file?name=[path][name]-[hash:6].[ext]&context=' + rootDir
+      },
+      { 
+        test: /\.s?css$/,
+        loader: 'style!css!sass'
       }
     ]
   },
 
   resolve: {
     root: [
-      __dirname + '/src/'
+      rootDir
     ]
   },
 
