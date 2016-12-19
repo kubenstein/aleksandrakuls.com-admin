@@ -44,51 +44,56 @@ class ConcertEditPage extends React.Component {
 
     return (
       <div>
-        <h1>Edit concert</h1>
-        {errors.length ?
-          <div>
-            <p>Errors:</p>
-            <ul>
-              { errors.map(error =>
-                <li key={error}>{error}</li>
-              )}
-            </ul>
-          </div>
-          : ''
-        }
-        <form id="concertForm" onSubmit={(e) => { this.submit(e); }} ref={(f) => { this.form = f; }} >
-          date:
-          <input
-            type="date"
-            name="date"
-            value={concert.date}
-            placeholder="date"
-            onChange={() => { this.formUpdated(); }}
-          />
-          <br />
+        <Link to="/concerts/" className="additional btn btn-warning">Back</Link>
+        <div className="form-wrapper">
+          <h1 className="form-title">Edit Concert Form</h1>
+          {errors.length ?
+            <div className="errors">
+              <ul>
+                { errors.map(error =>
+                  <li key={error}>{error}</li>
+                )}
+              </ul>
+            </div>
+            : ''
+          }
+          <form
+            id="concertForm"
+            onSubmit={(e) => { this.submit(e); }}
+            ref={(f) => { this.form = f; }}
+          >
+            <label htmlFor="date">Date:</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              className="input"
+              onChange={() => { this.formUpdated(); }}
+              value={concert.date}
+            />
 
-          textPL:
-          <textarea
-            name="textPL"
-            value={concert.textPL}
-            placeholder="textPL"
-            onChange={() => { this.formUpdated(); }}
-          />
-          <br />
+            <label htmlFor="textPL">text (PL):</label>
+            <textarea
+              id="textPL"
+              name="textPL"
+              className="input longer-text"
+              onChange={() => { this.formUpdated(); }}
+              value={concert.textPL}
+            />
 
-          textEn:
-          <textarea
-            name="textEN"
-            value={concert.textEN}
-            placeholder="textEN"
-            onChange={() => { this.formUpdated(); }}
-          />
-          <br />
+            <label htmlFor="textEN">text (EN):</label>
+            <textarea
+              id="textEN"
+              name="textEN"
+              className="input longer-text"
+              onChange={() => { this.formUpdated(); }}
+              value={concert.textEN}
+            />
 
-          <input type="hidden" name="id" value={concert.id} />
-          <input type="submit" value="Edit" />
-        </form>
-        <Link to="/concerts/">Back</Link>
+            <input type="hidden" name="id" value={concert.id} />
+            <input type="submit" value="Edit the Concert" className="btn btn-warning" />
+          </form>
+        </div>
       </div>
     );
   }

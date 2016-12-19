@@ -38,39 +38,37 @@ class ConcertAddPage extends React.Component {
     const errors = this.state.errors;
     return (
       <div>
-        <h1>Add concert Form</h1>
-        {errors.length ?
-          <div>
-            <p>Errors:</p>
-            <ul>
-              { errors.map(error =>
-                <li key={error}>{error}</li>
-              )}
-            </ul>
-          </div>
-          : ''
-        }
-        <form
-          id="concertForm"
-          onChange={() => { this.formUpdated(); }}
-          onSubmit={(e) => { this.submit(e); }}
-          ref={(f) => { this.form = f; }}
-        >
-          date:
-          <input type="date" name="date" placeholder="date" />
-          <br />
+        <Link to="/concerts/" className="additional btn btn-warning">Back</Link>
+        <div className="form-wrapper">
+          <h1 className="form-title">Add Concert Form</h1>
+          {errors.length ?
+            <div className="errors">
+              <ul>
+                { errors.map(error =>
+                  <li key={error}>{error}</li>
+                )}
+              </ul>
+            </div>
+            : ''
+          }
+          <form
+            id="concertForm"
+            onChange={() => { this.formUpdated(); }}
+            onSubmit={(e) => { this.submit(e); }}
+            ref={(f) => { this.form = f; }}
+          >
+            <label htmlFor="date">Date:</label>
+            <input type="date" id="date" name="date" className="input" />
 
-          textPL:
-          <textarea name="textPL" value={concert.textPL} placeholder="textPL" />
-          <br />
+            <label htmlFor="textPL">text (PL):</label>
+            <textarea id="textPL" name="textPL" className="input longer-text" value={concert.textPL} />
 
-          textEn:
-          <textarea name="textEN" value={concert.textEN} placeholder="textEN" />
-          <br />
+            <label htmlFor="textEN">text (EN):</label>
+            <textarea id="textEN" name="textEN" className="input longer-text" value={concert.textEN} />
 
-          <input type="submit" value="Add" />
-        </form>
-        <Link to="/concerts/">Back</Link>
+            <input type="submit" value="Add a Concert" className="btn btn-warning" />
+          </form>
+        </div>
       </div>
     );
   }

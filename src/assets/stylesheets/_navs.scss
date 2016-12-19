@@ -1,0 +1,29 @@
+.header-section {
+  font-weight: normal;
+  background-color: #b13f1b;
+  color: white;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+
+  .header {
+    float: left;
+    font-weight: normal;
+    color: $white;
+    text-decoration: none;
+    font-size: 24px;    
+  }
+
+  .nav {
+    float: right;
+  }
+
+  .nav-item {
+    color: $white;
+    display: inline-block;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

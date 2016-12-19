@@ -1,8 +1,13 @@
 import React from 'react';
-import 'assets/stylesheets/example.scss';
+import { Link } from 'react-router';
 
 export default function Header() {
   return (
-    <h1 className="main-header">Aleksandra Kuls Admin</h1>
+    <div className="header-section clearfix">
+      <Link to="/" className="header">Aleksandra Kuls Admin</Link>
+      <div className="nav">
+        <Link className="nav-item" to="/concerts/">Mange Concerts</Link>
+      </div>
+    </div>
   );
 }

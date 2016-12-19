@@ -1,0 +1,17 @@
+.btn {
+  border-radius: 4px;
+  padding: 5px 10px;
+  color: white;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+
+  &.btn-warning {
+    background-color: $orange-lighter;
+
+    &:hover {
+      background-color: $orange-light;      
+    }
+  }
+}

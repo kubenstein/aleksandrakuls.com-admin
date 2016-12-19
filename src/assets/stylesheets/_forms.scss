@@ -1,0 +1,37 @@
+.form-wrapper {
+  padding: 10px 0 10px 10px;
+  width: 100%;
+  max-width: 600px;
+
+  .form-title {
+    font-weight: normal;
+    font-size: 22px;
+    border-bottom: 2px solid $orange-dark;
+    margin-bottom: 30px;
+    display: inline-block;
+  }
+
+  .errors {
+    padding: 10px 0;
+    border-radius: 5px;
+    background-color: $grey-light;
+    margin: 10px 0;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .input {
+    margin-bottom: 30px;
+    border: 1px solid $orange-light;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .longer-text {
+    height: 100px;
+    width: 100%;    
+  }
+}

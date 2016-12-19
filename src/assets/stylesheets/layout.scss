@@ -1,0 +1,25 @@
+body, html {
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+h1,h2,h3,h4,h5 {
+  padding: 0;
+  margin: 0; 
+}
+
+body {
+  font-family: Tahoma, sans-serif; 
+}
+
+.footer-section {
+  margin: 20px 0 10px 0;
+  text-align: center;
+  color: $orange-dark;
+}
+
+.additional {
+  float: right;
+  margin: 10px;
+}

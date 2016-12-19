@@ -16,7 +16,7 @@ export default class ConcertValidator {
 
   validationErrors(concert) {
     const errors = [];
-    if (!concert.date) errors.push('date cant be empty');
+    if (!concert.date) errors.push('Date cant be empty');
     if (!concert.textPL) errors.push('Polish text cant be empty');
     return errors;
   }
