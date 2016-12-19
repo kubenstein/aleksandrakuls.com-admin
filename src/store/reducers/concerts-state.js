@@ -36,6 +36,15 @@ export default (state = initialState, action = null) => {
       });
     }
 
+    case ConcertsEvents.REMOVED: {
+      const concert = action.payload.concert;
+      const updatedConcerts = Object.assign({}, state.concerts);
+      delete updatedConcerts[concert.id];
+      return Object.assign({}, state, {
+        concerts: updatedConcerts
+      });
+    }
+
     default:
       return state;
   }

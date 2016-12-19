@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import serialize from 'form-serialize';
+import ConcertDeleteButton from 'components/concerts/ConcertDeleteButton.jsx';
 import updateConcert from 'actions/update-concert';
 
 class ConcertEditPage extends React.Component {
@@ -44,7 +45,10 @@ class ConcertEditPage extends React.Component {
 
     return (
       <div>
-        <Link to="/concerts/" className="additional btn btn-warning">Back</Link>
+        <div className="additional">
+          <Link to="/concerts/" className="item btn btn-warning">Back</Link>
+          <ConcertDeleteButton className="item" concert={concert} />
+        </div>
         <div className="form-wrapper">
           <h1 className="form-title">Edit Concert Form</h1>
           {errors.length ?

@@ -20,8 +20,9 @@
     "react/prop-types": 0,
     "react/no-find-dom-node": 1,
     "no-use-before-define": 1,
-    "no-unused-vars": 1,
-    "max-len": [2, {"code": 120, "ignoreComments": true}]
+    "no-unused-vars": [1, { "argsIgnorePattern": "^_" }],
+    "max-len": [2, {"code": 120, "ignoreComments": true}],
+    "no-alert": 0
   },
   "globals": {
     "browser": true,

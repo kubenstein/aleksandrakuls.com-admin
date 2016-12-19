@@ -22,3 +22,10 @@ export const updated = concert => ({
   }
 });
 
+export const REMOVED = 'concertRemoved';
+export const removed = concert => ({
+  type: REMOVED,
+  payload: {
+    concert: concert
+  }
+});

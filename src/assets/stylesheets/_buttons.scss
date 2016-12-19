@@ -14,4 +14,12 @@
       background-color: $orange-light;      
     }
   }
+
+  &.btn-danger {
+    background-color: $orange-dark;
+
+    &:hover {
+      background-color: $red;      
+    }
+  }
 }

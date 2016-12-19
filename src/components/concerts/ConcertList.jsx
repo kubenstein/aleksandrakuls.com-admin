@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { values } from 'lodash';
+import ConcertDeleteButton from 'components/concerts/ConcertDeleteButton.jsx';
 
 class ConcertList extends React.Component {
 
@@ -30,9 +31,10 @@ class ConcertList extends React.Component {
                 <td>{concert.textPL}</td>
                 <td>{concert.textEN}</td>
                 <td className="actions">
-                  <Link to={this.linkTo(concert)} className="btn btn-warning">
+                  <Link to={this.linkTo(concert)} className="item btn btn-warning">
                     Edit
                   </Link>
+                  <ConcertDeleteButton className="item" concert={concert} />
                 </td>
               </tr>
             )}

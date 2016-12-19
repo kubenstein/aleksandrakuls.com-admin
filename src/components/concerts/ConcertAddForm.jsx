@@ -38,7 +38,9 @@ class ConcertAddPage extends React.Component {
     const errors = this.state.errors;
     return (
       <div>
-        <Link to="/concerts/" className="additional btn btn-warning">Back</Link>
+        <div className="additional">
+          <Link to="/concerts/" className="item btn btn-warning">Back</Link>
+        </div>
         <div className="form-wrapper">
           <h1 className="form-title">Add Concert Form</h1>
           {errors.length ?

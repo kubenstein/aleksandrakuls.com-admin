@@ -17,5 +17,9 @@ table.table {
 
   td.actions {
     text-align: center;
+
+    .item {
+      margin-left: 5px;
+    }
   }
 }

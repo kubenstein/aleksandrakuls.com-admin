@@ -6,6 +6,9 @@ describe('User', () => {
     userCanSeeConcertList();
   });
 
+  xit('can remove a concert from the list', () => {
+  });
+
   it('can add a new concert', () => {
     whenVisitingConcertAddPage();
     andSubmittingAConcertForm('Just added Concert title');
