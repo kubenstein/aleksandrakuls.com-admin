@@ -14,6 +14,7 @@ class ConcertList extends React.Component {
     const concerts = this.props.concerts;
     return (
       <div>
+        <h1 className="page-title">Concert List</h1>
         <Link to="/concerts/new" className="additional btn btn-warning">Add New Concert</Link>
         <table className="table">
           <thead>

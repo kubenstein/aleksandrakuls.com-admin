@@ -13,6 +13,14 @@ body {
   font-family: Tahoma, sans-serif; 
 }
 
+.page-title {
+  font-weight: normal;
+  font-size: 22px;
+  border-bottom: 2px solid $orange-dark;
+  margin-bottom: 30px;
+  display: inline-block;
+}
+
 .footer-section {
   margin: 20px 0 10px 0;
   text-align: center;

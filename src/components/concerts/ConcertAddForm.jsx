@@ -42,7 +42,7 @@ class ConcertAddPage extends React.Component {
           <Link to="/concerts/" className="item btn btn-warning">Back</Link>
         </div>
         <div className="form-wrapper">
-          <h1 className="form-title">Add Concert Form</h1>
+          <h1 className="page-title">Add Concert Form</h1>
           {errors.length ?
             <div className="errors">
               <ul>

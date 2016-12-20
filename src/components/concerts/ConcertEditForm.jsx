@@ -50,7 +50,7 @@ class ConcertEditPage extends React.Component {
           <ConcertDeleteButton className="item" concert={concert} />
         </div>
         <div className="form-wrapper">
-          <h1 className="form-title">Edit Concert Form</h1>
+          <h1 className="page-title">Edit Concert Form</h1>
           {errors.length ?
             <div className="errors">
               <ul>

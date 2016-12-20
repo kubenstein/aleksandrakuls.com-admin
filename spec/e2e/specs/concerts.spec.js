@@ -6,7 +6,10 @@ describe('User', () => {
     userCanSeeConcertList();
   });
 
-  xit('can remove a concert from the list', () => {
+  it('can remove a concert from the list', () => {
+    createConcert('Concert to delete');
+    userRemoveTheConcert('Concert to delete');
+    userCanNotSeeTheConcert('Concert to delete');
   });
 
   it('can add a new concert', () => {
@@ -17,7 +20,7 @@ describe('User', () => {
 
   it('can not add an invalid concert', () => {
     whenVisitingConcertAddPage();
-    andSubmittingAConcertForm('');
+    andSubmittingAConcertForm(' ');
     userCanSee('Polish text cant be empty');
   });
 
@@ -27,9 +30,15 @@ describe('User', () => {
     userCanSeeTheConcert('Just edited Concert title');
   });
 
+  it('can remove a concert from the edit page', () => {
+    whenCreatingAndGoingToConcertEditPage('Concert to delete');
+    userRemoveTheConcert('Concert to delete');
+    userCanNotSeeTheConcert('Concert to delete');
+  });
+
   it('can not wrongly edit a concert', () => {
     whenCreatingAndGoingToConcertEditPage('concert to edit');
-    andSubmittingAConcertForm('');
+    andSubmittingAConcertForm(' ');
     userCanSee('Polish text cant be empty');
   });
 
@@ -42,14 +51,17 @@ describe('User', () => {
   function whenVisitingConcertAddPage() {
     whenVisitingConcertPage();
     browser.click('a*=Add New Concert');
-    userWillSeeTheForm();
+    userCanSee('Add Concert Form');
   }
 
   function whenCreatingAndGoingToConcertEditPage(concertTitle) {
-    whenVisitingConcertAddPage();
-    andSubmittingAConcertForm(concertTitle);
+    createConcert(concertTitle);
+
     userCanSeeConcertList();
-    browser.click('a*='+ concertTitle);
+
+    const links = browser.$$('a*=Edit');
+    const link = links[links.length - 1];
+    link.click();
   }
 
   function andSubmittingAConcertForm(concertTitle) {
@@ -66,15 +78,32 @@ describe('User', () => {
     userCanSee(concertTitle);
   }
 
-  function userCanSeeConcertList() {
-    userCanSee('Concert list');
+  function userCanNotSeeTheConcert(concertTitle) {
+    userCanNotSee(concertTitle);
   }
 
-  function userWillSeeTheForm() {
-    userCanSee('Add concert Form');
+  function userCanSeeConcertList() {
+    userCanSee('Concert List');
   }
 
   function userCanSee(text) {
     expect($('body').getText()).to.include(text);
-  }    
+  }
+
+  function userCanNotSee(text) {
+    expect($('body').getText()).to.not.include(text);
+  }
+
+  function createConcert(concertTitle) {
+    whenVisitingConcertAddPage();
+    andSubmittingAConcertForm(concertTitle);
+    userCanSeeTheConcert(concertTitle);
+  }
+
+  function userRemoveTheConcert(_concertTitle) {
+    const links = browser.$$('button*=Delete');
+    const link = links[links.length - 1];
+    link.click();
+    browser.alertAccept();
+  }
 });

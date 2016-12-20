@@ -100,7 +100,7 @@ exports.config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: 'bdd',
-    // timeout: 300000 // for long debugging sessions
+    timeout: 300000 // for long debugging sessions
   },
   //
   // =====
