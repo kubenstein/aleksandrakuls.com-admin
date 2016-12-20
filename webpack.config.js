@@ -46,6 +46,15 @@ module.exports = {
     ]
   },
 
+  devServer: {
+    proxy: {
+      '/api/**': {
+        target: 'http://localhost:8081',
+        secure: false
+      }
+    }
+  },
+
   plugins: process.env.NODE_ENV === 'production' ? [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),

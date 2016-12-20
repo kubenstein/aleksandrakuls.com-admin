@@ -1,1 +1,1 @@
-web: ./node_modules/http-server/bin/http-server -a 0.0.0.0 -p $PORT ./build
+web: npm start
