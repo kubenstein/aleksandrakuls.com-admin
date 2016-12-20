@@ -10,10 +10,13 @@
     "node": "v7.2.0"
   },
   "scripts": {
-    "dev": "nodemon --watch server/ server/server.js | webpack-dev-server",
+    "dev": "node ./dev-console.js",
+    "dev:frontend": "webpack-dev-server",
+    "dev:backend": "nodemon --watch server/ server/server.js",
+    "dev:linter": "eslint -c .eslintrc \"./src/**\" \"./spec/**\" || true",
+    "dev:linter:ci": "nodemon -e jsx,js --watch . --exec 'eslint -c .eslintrc \"./src/**\" \"./spec/**\" || true'",
     "tests:unit": "./spec/unit/start.sh",
     "tests:e2e": "./spec/e2e/start.sh",
-    "tests:lint": "eslint -c .eslintrc './src/**' './spec/**'",
     "build": "webpack -p",
     "postinstall": "npm run build",
     "start": "node server/server.js"
@@ -45,10 +48,11 @@
     "webpack": "^1.13.3"
   },
   "devDependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.6.5",
     "chai": "^3.5.0",
     "eslint": "^3.11.1",
     "eslint-config-airbnb": "latest",
-    "eslint-loader": "^1.6.1",
     "eslint-plugin-import": "latest",
     "eslint-plugin-jasmine": "^2.2.0",
     "eslint-plugin-jsx-a11y": "2.x",
