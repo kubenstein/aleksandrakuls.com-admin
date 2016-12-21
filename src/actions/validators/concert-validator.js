@@ -16,8 +16,10 @@ export default class ConcertValidator {
 
   validationErrors(concert) {
     const errors = [];
-    if (!concert.date.trim()) errors.push('Date cant be empty');
-    if (!concert.textPL.trim()) errors.push('Polish text cant be empty');
+    const date = concert.date || '';
+    const textPL = concert.textPL || '';
+    if (!date.trim()) errors.push('Date cant be empty');
+    if (!textPL.trim()) errors.push('Polish text cant be empty');
     return errors;
   }
 }
