@@ -18,6 +18,7 @@ describe('User', () => {
 
   it('can remove a concert from the list', () => {
     createConcert('Concert to delete');
+    whenVisitingConcertPage();
     userRemoveTheConcert('Concert to delete');
     userCanNotSeeTheConcert('Concert to delete');
   });
@@ -35,19 +36,22 @@ describe('User', () => {
   });
 
   it('can edit a concert', () => {
-    whenCreatingAndGoingToConcertEditPage('concert to edit');
+    createConcert('concert to edit');
+    whenVisitingConcertEditPage('concert to edit');
     andSubmittingAConcertForm('Just edited Concert title');
     userCanSeeTheConcert('Just edited Concert title');
   });
 
   it('can remove a concert from the edit page', () => {
-    whenCreatingAndGoingToConcertEditPage('Concert to delete');
+    createConcert('Concert to delete');
+    whenVisitingConcertEditPage('Concert to delete');
     userRemoveTheConcert('Concert to delete');
     userCanNotSeeTheConcert('Concert to delete');
   });
 
   it('can not wrongly edit a concert', () => {
-    whenCreatingAndGoingToConcertEditPage('concert to edit');
+    createConcert('concert to edit');
+    whenVisitingConcertEditPage('concert to edit');
     andSubmittingAConcertForm(' ');
     userCanSee('Polish text cant be empty');
   });
@@ -64,10 +68,8 @@ describe('User', () => {
     userCanSee('Add Concert Form');
   }
 
-  function whenCreatingAndGoingToConcertEditPage(concertTitle) {
-    createConcert(concertTitle);
-
-    userCanSeeConcertList();
+  function whenVisitingConcertEditPage(concertTitle) {
+    whenVisitingConcertPage();
 
     const links = browser.$$('a*=Edit');
     const link = links[links.length - 1];
@@ -105,9 +107,12 @@ describe('User', () => {
   }
 
   function createConcert(concertTitle) {
-    whenVisitingConcertAddPage();
-    andSubmittingAConcertForm(concertTitle);
-    userCanSeeTheConcert(concertTitle);
+    const concert = { 
+      date: '2016-12-02',
+      textPL: concertTitle,
+      textEN: concertTitle 
+    };
+    db.concerts.insert(concert, () => {});
   }
 
   function userRemoveTheConcert(_concertTitle) {

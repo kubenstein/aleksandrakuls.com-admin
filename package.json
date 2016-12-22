@@ -21,7 +21,7 @@
     "tests:e2e:frontend": "webpack --watch",
     "tests:e2e:backend": "PORT=8888 MONGODB_URI='localhost:27018/db' nodemon -e jsx,js --watch server/ server/server.js",
     "tests:e2e:db": "mongod --timeStampFormat=ctime -v --dbpath=./db/test --port 27018",
-    "tests:e2e:spec-runner": "nodemon -e jsx,js --ignore build/ --watch . --delay 10 --exec 'PORT=8888 MONGODB_URI=localhost:27018/db wdio ./spec/e2e/wdio.conf.js || true'",
+    "tests:e2e:spec-runner": "nodemon -e jsx,js --ignore build/ --watch . --exec 'PORT=8888 MONGODB_URI=localhost:27018/db wdio ./spec/e2e/wdio.conf.js || true'",
 
     "build": "webpack -p",
     "postinstall": "npm run build",
