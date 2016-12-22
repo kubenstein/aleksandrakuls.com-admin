@@ -1,17 +1,19 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var _ = require('lodash');
-var basicAuthMiddleware = require('./basic-auth').default;
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const _ = require('lodash');
+const basicAuthMiddleware = require('./basic-auth').default;
+
 
 // ------------- serv setup ---------------
-var app = express();
-if (process.env.NODE_ENV === 'production') {
-  var adminUser = process.env.ADMIN_USER;
-  var adminPass = process.env.ADMIN_PASS;
-  if (!adminUser && !adminPass)
-    throw "!!\n!!\n!! ADMIN_USER, ADMIN_PASS env vars have to be set!\n!!\n!!";
+const app = express();
 
+if (process.env.NODE_ENV === 'production') {
+  const adminUser = process.env.ADMIN_USER;
+  const adminPass = process.env.ADMIN_PASS;
+  if (!adminUser && !adminPass) {
+    throw new Error('\n!!\n!! ADMIN_USER, ADMIN_PASS env lets have to be set!\n!!\n!!');
+  }
   app.use(basicAuthMiddleware(adminUser, adminPass));
 }
 
@@ -20,35 +22,37 @@ app.use(express.static('build/'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
 // ------------------ db ------------------
-var concerts = {
+let concerts = {
   1: { id: '1', date: '2014-12-02', textPL: 'concert text PL 1', textEN: 'concert text EN 1' }
-}
+};
+
 
 // ---------------- routes ----------------
-app.get('/api/concerts', function(req, res) {
+app.get('/api/concerts', (req, res) => {
   res.json(_.values(concerts));
 });
 
-app.post('/api/concerts', function(req, res) {
+app.post('/api/concerts', (req, res) => {
   const id = Math.random().toString();
-  var concert = req.body.concert;
+  const concert = req.body.concert;
   concert.id = id;
   concerts[id] = concert;
   res.json(concert);
 });
 
-app.post('/api/concerts/:id', function(req, res) {
+app.post('/api/concerts/:id', (req, res) => {
   const id = req.params.id;
-  var concert = req.body.concert;
+  const concert = req.body.concert;
   concerts[id] = concert;
   res.json(concert);
 });
 
-app.delete('/api/concerts/:id', function(req, res) {
+app.delete('/api/concerts/:id', (req, res) => {
   const id = req.params.id;
   const concert = _.clone(concerts[id]);
-  concerts = _.remove(concerts, {id: id});
+  concerts = _.remove(concerts, { id: id });
   res.json(concert);
 });
 
