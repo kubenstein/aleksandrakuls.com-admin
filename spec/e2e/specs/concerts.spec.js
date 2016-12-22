@@ -19,7 +19,7 @@ describe('User', () => {
   it('can remove a concert from the list', () => {
     createConcert('Concert to delete');
     whenVisitingConcertPage();
-    userRemoveTheConcert('Concert to delete');
+    userRemovesTheConcert('Concert to delete');
     userCanNotSeeTheConcert('Concert to delete');
   });
 
@@ -45,7 +45,7 @@ describe('User', () => {
   it('can remove a concert from the edit page', () => {
     createConcert('Concert to delete');
     whenVisitingConcertEditPage('Concert to delete');
-    userRemoveTheConcert('Concert to delete');
+    userRemovesTheConcert('Concert to delete');
     userCanNotSeeTheConcert('Concert to delete');
   });
 
@@ -115,7 +115,7 @@ describe('User', () => {
     db.concerts.insert(concert, () => {});
   }
 
-  function userRemoveTheConcert(_concertTitle) {
+  function userRemovesTheConcert(_concertTitle) {
     const links = browser.$$('button*=Delete');
     const link = links[links.length - 1];
     link.click();
