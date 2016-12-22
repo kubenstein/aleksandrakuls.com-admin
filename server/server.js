@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const _ = require('lodash');
-const basicAuthMiddleware = require('./basic-auth').default;
+const mongojs = require('mongojs');
+const normalizeMongoResponse = require('./utils').normalizeMongoResponse;
+const basicAuthExpressMiddleware = require('./basic-auth').default;
 
 
 // ------------- serv setup ---------------
+const db = mongojs('localhost/db', ['concerts']);
 const app = express();
 
 if (process.env.NODE_ENV === 'production') {
@@ -14,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
   if (!adminUser && !adminPass) {
     throw new Error('\n!!\n!! ADMIN_USER, ADMIN_PASS env lets have to be set!\n!!\n!!');
   }
-  app.use(basicAuthMiddleware(adminUser, adminPass));
+  app.use(basicAuthExpressMiddleware(adminUser, adminPass));
 }
 
 app.use(morgan('combined'));
@@ -23,37 +25,39 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-// ------------------ db ------------------
-let concerts = {
-  1: { id: '1', date: '2014-12-02', textPL: 'concert text PL 1', textEN: 'concert text EN 1' }
-};
-
-
 // ---------------- routes ----------------
 app.get('/api/concerts', (req, res) => {
-  res.json(_.values(concerts));
+  db.concerts.find((err, concerts) => {
+    return res.json(normalizeMongoResponse(concerts));
+  });
 });
 
 app.post('/api/concerts', (req, res) => {
-  const id = Math.random().toString();
   const concert = req.body.concert;
-  concert.id = id;
-  concerts[id] = concert;
-  res.json(concert);
+  db.concerts.insert(concert, (err, addedConcert) => {
+    return res.json(normalizeMongoResponse(addedConcert));
+  });
 });
 
 app.post('/api/concerts/:id', (req, res) => {
   const id = req.params.id;
   const concert = req.body.concert;
-  concerts[id] = concert;
-  res.json(concert);
+  db.concerts.findAndModify({
+    query: { _id: mongojs.ObjectId(id) },
+    update: { $set: concert },
+    new: true
+  }, (err, updatedConcert) => {
+    return res.json(normalizeMongoResponse(updatedConcert));
+  });
 });
 
 app.delete('/api/concerts/:id', (req, res) => {
   const id = req.params.id;
-  const concert = _.clone(concerts[id]);
-  concerts = _.remove(concerts, { id: id });
-  res.json(concert);
+  db.concerts.findOne({ _id: mongojs.ObjectId(id) }, (_findErr, concert) => {
+    db.concerts.remove({ _id: mongojs.ObjectId(id) }, { justOne: true }, (_removeErr) => {
+      return res.json(normalizeMongoResponse(concert));
+    });
+  });
 });
 
 

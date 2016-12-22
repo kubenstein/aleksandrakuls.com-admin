@@ -22,7 +22,8 @@
     "no-use-before-define": 0,
     "no-unused-vars": [1, { "argsIgnorePattern": "^_" }],
     "max-len": [2, {"code": 120, "ignoreComments": true}],
-    "no-alert": 0
+    "no-alert": 0,
+    "arrow-body-style": 0
   },
   "globals": {
     "browser": true,

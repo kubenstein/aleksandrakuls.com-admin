@@ -1,6 +1,6 @@
 const basicAuth = require('basic-auth');
 
-exports.default = function basicAuthMiddleware(username, password) {
+exports.default = (username, password) => {
   return function basicAuthCheck(req, res, next) {
     const user = basicAuth(req);
     if (!user || user.name !== username || user.pass !== password) {

@@ -27,7 +27,7 @@ class ConcertList extends React.Component {
           </thead>
           <tbody>
             { concerts.map(concert =>
-              <tr key={concert.date}>
+              <tr key={concert.id}>
                 <td>{concert.date}</td>
                 <td>{concert.textPL}</td>
                 <td>{concert.textEN}</td>
