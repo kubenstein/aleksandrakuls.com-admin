@@ -1,5 +1,6 @@
 const mongojs = require('mongojs');
 const expect = require('chai').expect;
+
 const db = mongojs(process.env.MONGODB_URI, ['concerts']);
 
 describe('User', () => {
@@ -8,7 +9,7 @@ describe('User', () => {
       db.concerts.remove(() => {
         resolve();
       });
-    })
+    });
   });
 
   it('can see concert list', () => {
@@ -69,7 +70,7 @@ describe('User', () => {
   }
 
   function whenVisitingConcertEditPage(concertTitle) {
-    whenVisitingConcertPage();
+    whenVisitingConcertPage(concertTitle);
 
     const links = browser.$$('a*=Edit');
     const link = links[links.length - 1];
@@ -107,10 +108,10 @@ describe('User', () => {
   }
 
   function createConcert(concertTitle) {
-    const concert = { 
+    const concert = {
       date: '2016-12-02',
       textPL: concertTitle,
-      textEN: concertTitle 
+      textEN: concertTitle
     };
     db.concerts.insert(concert, () => {});
   }
