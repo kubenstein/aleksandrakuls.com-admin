@@ -7,7 +7,7 @@ const basicAuthExpressMiddleware = require('./basic-auth').default;
 
 
 // ------------- serv setup ---------------
-const db = mongojs('localhost/db', ['concerts']);
+const db = mongojs(process.env.MONGODB_URI, ['concerts']);
 const app = express();
 
 if (process.env.NODE_ENV === 'production') {

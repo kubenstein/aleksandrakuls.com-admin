@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "node ./dev-console.js",
     "dev:frontend": "webpack-dev-server",
-    "dev:backend": "nodemon --watch server/ server/server.js",
+    "dev:backend": "MONGODB_URI='localhost/db' nodemon --watch server/ server/server.js",
     "dev:db": "mongod --timeStampFormat=ctime -v --dbpath=./db/data --port 27017",
     "dev:linter": "eslint -c .eslintrc \"./server/**\" \"./src/**\" \"./spec/**\" || true",
     "dev:linter:ci": "nodemon -e jsx,js --watch . --exec 'npm run dev:linter'",
