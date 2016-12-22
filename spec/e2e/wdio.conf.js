@@ -1,9 +1,7 @@
 /* eslint-disable */
 
 const chai = require('chai');
-const httpServer = require('http-server');
 
-var fileServer;
 exports.config = {
   //
   // ==================
@@ -53,7 +51,7 @@ exports.config = {
   //
   // Set a base URL in order to shorten url command calls. If your url parameter starts
   // with "/", the base url gets prepended.
-  baseUrl: 'http://localhost:8888',
+  baseUrl: 'http://localhost:' + process.env.PORT,
   //
   // Default timeout for all waitForXXX commands.
   waitforTimeout: 10000,
@@ -112,18 +110,13 @@ exports.config = {
   // resolved to continue.
   //
   // Gets executed once before all workers get launched.
-  onPrepare: function (config, capabilities) {
-    console.log('starting webserver');
-    fileServer = httpServer.createServer({root: 'build/'});
-    fileServer.listen(8888);
-  },
+  // onPrepare: function (config, capabilities) {
+  // },
 
   // Gets executed after all workers got shut down and the process is about to exit. It is not
   // possible to defer the end of the process using a promise.
-  onComplete: function(exitCode) {
-    fileServer.close();
-    console.log('closing webserver');
-  }
+  // onComplete: function(exitCode) {
+  // }
   //
   // Gets executed before test execution begins. At this point you can access to all global
   // variables like `browser`. It is the perfect place to define custom commands.

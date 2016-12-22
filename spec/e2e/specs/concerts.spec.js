@@ -1,6 +1,16 @@
+const mongojs = require('mongojs');
 const expect = require('chai').expect;
+const db = mongojs(process.env.MONGODB_URI, ['concerts']);
 
 describe('User', () => {
+  beforeEach(() => {
+    return new Promise((resolve) => {
+      db.concerts.remove(() => {
+        resolve();
+      });
+    })
+  });
+
   it('can see concert list', () => {
     whenVisitingConcertPage();
     userCanSeeConcertList();
