@@ -1,13 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const mongojs = require('mongojs');
-const normalizeMongoResponse = require('./utils').normalizeMongoResponse;
 const basicAuthExpressMiddleware = require('./basic-auth').default;
+const ConcertRepository = require('./concert-repository');
 
 
 // ------------- serv setup ---------------
-const db = mongojs(process.env.MONGODB_URI, ['concerts']);
 const app = express();
 
 if (process.env.NODE_ENV === 'production') {
@@ -27,36 +25,30 @@ app.use(bodyParser.json());
 
 // ---------------- routes ----------------
 app.get('/api/concerts', (req, res) => {
-  db.concerts.find((err, concerts) => {
-    return res.json(normalizeMongoResponse(concerts));
+  ConcertRepository.all().then((concerts) => {
+    return res.json(concerts);
   });
 });
 
 app.post('/api/concerts', (req, res) => {
   const concert = req.body.concert;
-  db.concerts.insert(concert, (err, addedConcert) => {
-    return res.json(normalizeMongoResponse(addedConcert));
+  ConcertRepository.add(concert).then((addedConcert) => {
+    return res.json(addedConcert);
   });
 });
 
 app.post('/api/concerts/:id', (req, res) => {
   const id = req.params.id;
   const concert = req.body.concert;
-  db.concerts.findAndModify({
-    query: { _id: mongojs.ObjectId(id) },
-    update: { $set: concert },
-    new: true
-  }, (err, updatedConcert) => {
-    return res.json(normalizeMongoResponse(updatedConcert));
+  ConcertRepository.update(id, concert).then((updatedConcert) => {
+    return res.json(updatedConcert);
   });
 });
 
 app.delete('/api/concerts/:id', (req, res) => {
   const id = req.params.id;
-  db.concerts.findOne({ _id: mongojs.ObjectId(id) }, (_findErr, concert) => {
-    db.concerts.remove({ _id: mongojs.ObjectId(id) }, { justOne: true }, (_removeErr) => {
-      return res.json(normalizeMongoResponse(concert));
-    });
+  ConcertRepository.remove(id).then((removedConcert) => {
+    return res.json(removedConcert);
   });
 });
 
