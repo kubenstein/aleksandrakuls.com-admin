@@ -10,8 +10,14 @@ class ConcertList extends React.Component {
     return `/concerts/${concert.id}`;
   }
 
+  sortedConcerts() {
+    return this.props.concerts.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    })
+  }
+
   render() {
-    const concerts = this.props.concerts;
+    const concerts = this.sortedConcerts();
     return (
       <div>
         <h1 className="page-title">Concert List</h1>
