@@ -1,0 +1,49 @@
+.progress-bar-wrapper {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.progress-bar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+
+  .progress-step {
+    float: left;
+    margin-right: 30px;
+    position: relative;
+
+    &:before {
+      content: " ";
+      position: relative;
+      display: block;
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 10px auto;
+      border-radius: 25px;
+      background-color: $grey-light;
+      z-index: 3;
+    }
+
+    &:after {
+      content: " ";
+      position: absolute;
+      top: 21px;
+      left: -63px;
+      display: block;
+      width: 100px;
+      height: 10px;
+      background-color: $grey-light;
+      z-index: 2;
+    }
+
+    &:first-child:after {
+      display: none;
+    }
+
+    &.executed:before, &.executed:after {
+      background-color: $green; 
+    }
+  }
+}

@@ -1,6 +1,6 @@
 .header-section {
   font-weight: normal;
-  background-color: #b13f1b;
+  background-color: $orange-dark;
   color: white;
   padding: 10px 10px;
   margin-bottom: 10px;
@@ -21,9 +21,19 @@
     color: $white;
     display: inline-block;
     text-decoration: none;
+    margin-left: 10px;
 
     &:hover {
       text-decoration: underline;
     }
   }
+
+  .btn-danger {
+    background-color: $white;
+    color: $orange-dark;
+    &:hover {
+      background-color: $green;
+      color: $white;
+    }
+  }  
 }

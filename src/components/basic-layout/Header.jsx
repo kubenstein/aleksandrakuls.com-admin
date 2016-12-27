@@ -7,6 +7,7 @@ export default function Header() {
       <Link to="/" className="header">Aleksandra Kuls Admin</Link>
       <div className="nav">
         <Link className="nav-item" to="/concerts/">Mange Concerts</Link>
+        <Link className="nav-item btn btn-danger" to="/deployment/">Deploy</Link>
       </div>
     </div>
   );

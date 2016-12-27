@@ -2,10 +2,18 @@
   border-radius: 4px;
   padding: 5px 10px;
   color: white;
-  text-decoration: none;
+  text-decoration: none !important;
   border: none;
   cursor: pointer;
   font-size: 16px;
+
+  &.btn-prompt {
+    background-color: $green;
+
+    &:hover {
+      background-color: $green-dark;      
+    }
+  }
 
   &.btn-warning {
     background-color: $orange-lighter;
