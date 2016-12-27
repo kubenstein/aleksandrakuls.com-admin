@@ -13,7 +13,7 @@ class ConcertList extends React.Component {
   sortedConcerts() {
     return this.props.concerts.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
-    })
+    });
   }
 
   render() {
