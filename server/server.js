@@ -2,9 +2,9 @@ const express = require('express');
 const SocketIo = require('socket.io');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const basicAuthExpressMiddleware = require('./basic-auth').default;
-const ConcertRepository = require('./concert-repository');
-const HerokuDeployer = require('./heroku-deployer');
+const basicAuthExpressMiddleware = require('./lib/basic-auth').default;
+const ConcertRepository = require('./lib/concert-repository');
+const HerokuDeployer = require('./lib/heroku-deployer');
 
 const adminUser = process.env.ADMIN_USER;
 const adminPass = process.env.ADMIN_PASS;
