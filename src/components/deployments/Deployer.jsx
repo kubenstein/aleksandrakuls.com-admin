@@ -1,19 +1,30 @@
 import React from 'react';
+import io from 'socket.io-client';
 
 export default class Deployer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       confirmed: false,
-      steps: ['Fetching', 'Commiting', 'Pushing', 'Cleaning', 'Deployed'],
-      currentStep: 'Pushing'
+      steps: ['Waiting for server'],
+      currentStep: null
     };
   }
 
   confrim() {
     this.setState({ confirmed: true });
+    const socket = io();
+    socket.on('deploymentSetup', (msg) => { this.deploymentSetupMessage(msg); });
+    socket.on('deploymentStatusUpdate', (msg) => { this.deploymentStatusUpdateMessage(msg); });
+    socket.emit('deploymentStart', '');
+  }
 
-    console.log('initialize deployment on backend...');
+  deploymentSetupMessage(steps) {
+    this.setState({ steps: steps, currentStep: steps[0] });
+  }
+
+  deploymentStatusUpdateMessage(currentStep) {
+    this.setState({ currentStep: currentStep });
   }
 
   stepCssClasses(step) {

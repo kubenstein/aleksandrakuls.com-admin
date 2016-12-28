@@ -22,7 +22,6 @@
     "tests:e2e:backend": "PORT=8888 MONGODB_URI='localhost:27018/db' nodemon -e jsx,js --watch server/ server/server.js",
     "tests:e2e:db": "mongod --timeStampFormat=ctime -v --dbpath=./db/test --port 27018",
     "tests:e2e:spec-runner": "nodemon -e jsx,js --ignore build/ --watch . --exec 'PORT=8888 MONGODB_URI=localhost:27018/db wdio ./spec/e2e/wdio.conf.js || true'",
-
     "build": "webpack -p",
     "postinstall": "npm run build",
     "start": "node server/server.js"
@@ -54,6 +53,7 @@
     "react-router": "^3.0.0",
     "redux": "^3.6.0",
     "sass-loader": "^4.1.0",
+    "socket.io": "^1.7.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3"
   },

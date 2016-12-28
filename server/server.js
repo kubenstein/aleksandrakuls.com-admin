@@ -1,4 +1,5 @@
 const express = require('express');
+const SocketIo = require('socket.io');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const basicAuthExpressMiddleware = require('./basic-auth').default;
@@ -7,6 +8,8 @@ const ConcertRepository = require('./concert-repository');
 
 // ------------- serv setup ---------------
 const app = express();
+const server = app.listen(process.env.PORT || 8081);
+const io = SocketIo(server);
 
 if (process.env.NODE_ENV === 'production') {
   const adminUser = process.env.ADMIN_USER;
@@ -52,6 +55,16 @@ app.delete('/api/concerts/:id', (req, res) => {
   });
 });
 
+// -------------- webSockets --------------
+const steps = ['Setup', 'Fetching', 'Commiting', 'Pushing', 'Cleaning', 'Deployed'];
 
-// ----------------- go! ------------------
-app.listen(process.env.PORT || 8081);
+io.on('connection', (socket) => {
+  socket.emit('deploymentSetup', steps);
+  socket.on('deploymentStart', () => { startDeployment(socket); });
+});
+
+function startDeployment(socket) {
+  steps.forEach((e) => {
+    socket.emit('deploymentStatusUpdate', e);
+  });
+}
