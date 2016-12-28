@@ -39,8 +39,7 @@ class ConcertEditPage extends React.Component {
   }
 
   render() {
-    const concert = this.state.concert;
-    const errors = this.state.errors;
+    const { concert, errors } = this.state;
     if (!concert) return null;
 
     return (
