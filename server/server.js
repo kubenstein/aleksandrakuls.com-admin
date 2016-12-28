@@ -4,7 +4,12 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const basicAuthExpressMiddleware = require('./basic-auth').default;
 const ConcertRepository = require('./concert-repository');
+const HerokuDeployer = require('./heroku-deployer');
 
+const adminUser = process.env.ADMIN_USER;
+const adminPass = process.env.ADMIN_PASS;
+const herokuApiKey = process.env.HEROKU_API_KEY;
+const herokuAppName = process.env.HEROKU_APP_NAME;
 
 // ------------- serv setup ---------------
 const app = express();
@@ -12,8 +17,6 @@ const server = app.listen(process.env.PORT || 8081);
 const io = SocketIo(server);
 
 if (process.env.NODE_ENV === 'production') {
-  const adminUser = process.env.ADMIN_USER;
-  const adminPass = process.env.ADMIN_PASS;
   if (!adminUser && !adminPass) {
     throw new Error('\n!!\n!! ADMIN_USER, ADMIN_PASS env lets have to be set!\n!!\n!!');
   }
@@ -56,15 +59,15 @@ app.delete('/api/concerts/:id', (req, res) => {
 });
 
 // -------------- webSockets --------------
-const steps = ['Setup', 'Fetching', 'Commiting', 'Pushing', 'Cleaning', 'Deployed'];
+const deployer = new HerokuDeployer(herokuAppName, herokuApiKey);
 
 io.on('connection', (socket) => {
-  socket.emit('deploymentSetup', steps);
+  socket.emit('deploymentSetup', deployer.steps());
   socket.on('deploymentStart', () => { startDeployment(socket); });
 });
 
 function startDeployment(socket) {
-  steps.forEach((e) => {
-    socket.emit('deploymentStatusUpdate', e);
+  deployer.deploy((completedStep) => {
+    socket.emit('deploymentStatusUpdate', completedStep);
   });
 }
