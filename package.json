@@ -11,6 +11,7 @@
   },
   "scripts": {
     "dev": "node ./dev-console.js",
+    "dev:seeds": "MONGODB_URI='localhost/db' npm run seeds",
     "dev:frontend": "webpack-dev-server",
     "dev:backend": "MONGODB_URI='localhost/db' nodemon --watch server/ server/server.js",
     "dev:db": "mongod --timeStampFormat=ctime -v --dbpath=./db/development --port 27017",
@@ -22,6 +23,7 @@
     "tests:e2e:backend": "PORT=8888 MONGODB_URI='localhost:27018/db' nodemon -e jsx,js --watch server/ server/server.js",
     "tests:e2e:db": "mongod --timeStampFormat=ctime -v --dbpath=./db/test --port 27018",
     "tests:e2e:spec-runner": "nodemon -e jsx,js --ignore build/ --watch . --exec 'PORT=8888 MONGODB_URI=localhost:27018/db wdio ./spec/e2e/wdio.conf.js || true'",
+    "seeds": "node ./server/seeds.js",
     "build": "webpack -p",
     "postinstall": "npm run build",
     "start": "node server/server.js"
