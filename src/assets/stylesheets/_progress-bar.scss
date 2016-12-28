@@ -13,6 +13,7 @@
     float: left;
     margin-right: 30px;
     position: relative;
+    width: 70px;
 
     &:before {
       content: " ";
@@ -30,9 +31,9 @@
       content: " ";
       position: absolute;
       top: 21px;
-      left: -63px;
+      left: -42px;
       display: block;
-      width: 100px;
+      width: 53px;
       height: 10px;
       background-color: $grey-light;
       z-index: 2;
@@ -45,5 +46,16 @@
     &.executed:before, &.executed:after {
       background-color: $green; 
     }
+
+    &.inProgress:before {
+      background-color: $blue;
+    }
+
+    &.inProgress:after {
+    background: $green;
+    background: -moz-linear-gradient(left, $green 0%, $blue 100%);
+    background: -webkit-linear-gradient(left, $green 0%, $blue 100%);
+    background: linear-gradient(to right, $green 0%, $blue 100%);
+    }    
   }
 }

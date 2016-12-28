@@ -7,7 +7,7 @@ export default class Deployer extends React.Component {
     this.state = {
       confirmed: false,
       steps: ['Waiting for server'],
-      currentStep: null,
+      lastSuccessfulStep: null,
       errMessage: null
     };
   }
@@ -22,11 +22,11 @@ export default class Deployer extends React.Component {
   }
 
   deploymentSetupMessage(steps) {
-    this.setState({ steps: steps, currentStep: steps[0] });
+    this.setState({ steps: steps, lastSuccessfulStep: steps[0] });
   }
 
-  deploymentStatusUpdateMessage(currentStep) {
-    this.setState({ currentStep: currentStep });
+  deploymentStatusUpdateMessage(lastSuccessfulStep) {
+    this.setState({ lastSuccessfulStep: lastSuccessfulStep });
   }
 
   deploymentError(errMessage) {
@@ -34,11 +34,14 @@ export default class Deployer extends React.Component {
   }
 
   stepCssClasses(step) {
-    const { steps, currentStep } = this.state;
+    const { steps, lastSuccessfulStep } = this.state;
     const stepPosition = steps.indexOf(step);
-    const currentStepPosition = steps.indexOf(currentStep);
-    const executed = stepPosition <= currentStepPosition;
-    return `progress-step ${executed ? 'executed' : ''}`;
+    const lastSuccessfulStepPosition = steps.indexOf(lastSuccessfulStep);
+    const executed = stepPosition <= lastSuccessfulStepPosition;
+    const inProgress = stepPosition === lastSuccessfulStepPosition + 1;
+    return `progress-step
+            ${executed ? 'executed' : ''}
+            ${inProgress ? 'inProgress' : ''}`;
   }
 
   render() {
