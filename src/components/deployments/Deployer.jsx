@@ -7,7 +7,8 @@ export default class Deployer extends React.Component {
     this.state = {
       confirmed: false,
       steps: ['Waiting for server'],
-      currentStep: null
+      currentStep: null,
+      errMessage: null
     };
   }
 
@@ -16,6 +17,7 @@ export default class Deployer extends React.Component {
     const socket = io();
     socket.on('deploymentSetup', (msg) => { this.deploymentSetupMessage(msg); });
     socket.on('deploymentStatusUpdate', (msg) => { this.deploymentStatusUpdateMessage(msg); });
+    socket.on('deploymentError', (msg) => { this.deploymentError(msg); });
     socket.emit('deploymentStart', '');
   }
 
@@ -27,6 +29,10 @@ export default class Deployer extends React.Component {
     this.setState({ currentStep: currentStep });
   }
 
+  deploymentError(errMessage) {
+    this.setState({ error: errMessage });
+  }
+
   stepCssClasses(step) {
     const { steps, currentStep } = this.state;
     const stepPosition = steps.indexOf(step);
@@ -36,17 +42,24 @@ export default class Deployer extends React.Component {
   }
 
   render() {
-    const { confirmed, steps } = this.state;
+    const { confirmed, steps, error } = this.state;
     return (
       <div>
         <h1 className="page-title">Deployment Console</h1>
         <div className="progress-bar-wrapper">
           {confirmed ?
-            <ul className="progress-bar clearfix">
-              { steps.map(step =>
-                <li key={step} className={this.stepCssClasses(step)}>{step}</li>
-              )}
-            </ul>
+            <div>
+              {error ?
+                <div className="errors">
+                  <p>DEPLOYMENT ERROR:<br />{error}</p>
+                </div>
+              : ''}
+              <ul className="progress-bar clearfix">
+                { steps.map(step =>
+                  <li key={step} className={this.stepCssClasses(step)}>{step}</li>
+                )}
+              </ul>
+            </div>
           :
             <button onClick={() => { this.confrim(); }} className="btn btn-prompt">
               Initialize Deployment

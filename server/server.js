@@ -67,7 +67,12 @@ io.on('connection', (socket) => {
 });
 
 function startDeployment(socket) {
-  deployer.deploy((completedStep) => {
-    socket.emit('deploymentStatusUpdate', completedStep);
-  });
+  deployer.deploy(
+    (completedStep) => {
+      socket.emit('deploymentStatusUpdate', completedStep);
+    },
+    (error) => {
+      socket.emit('deploymentError', error.toString());
+    }
+  );
 }

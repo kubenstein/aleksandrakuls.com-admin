@@ -9,15 +9,15 @@ class HerokuDeployer {
   steps() {
     return [
       'Setup',
-      'Fetched',
-      'Commited',
-      'Pushed',
-      'Cleaned',
+      'Fetching',
+      'Adding Empty Commit',
+      'Pushing',
+      'Cleaning the Repo',
       'Deployed'
     ];
   }
 
-  deploy(statusUpdateCallback) {
+  deploy(statusUpdateCallback, errorCallback) {
     this.repo = null;
     this.originalMasterCommit = null;
     this.statusUpdateCallback = statusUpdateCallback;
@@ -28,9 +28,7 @@ class HerokuDeployer {
     .then(this.createEmptyDeploymentCommit.bind(this))
     .then(this.deployPush.bind(this))
     .then(() => { this.statusUpdateCallback('Deployed'); })
-    .catch((e) => {
-      console.log(e);
-    });
+    .catch((e) => { errorCallback(e); });
   }
 
   // private
@@ -47,44 +45,32 @@ class HerokuDeployer {
   openRepo() {
     return Git.Repository.open(this.tempRepoPath)
     .then((repository) => {
-      console.log('repo exists');
       this.repo = repository;
     });
   }
 
   initRepo() {
-    console.log('repo doesnt exits, creating repo...');
     return Git.Repository.init(this.tempRepoPath, 0)
     .then((repository) => {
-      console.log('repo created');
       this.repo = repository;
-      return Git.Remote.create(this.repo, 'heroku', this.repoUrl)
-      .then(() => {
-        console.log('remote added to repo');
-      });
+      return Git.Remote.create(this.repo, 'heroku', this.repoUrl);
     });
   }
 
   pullData() {
-    console.log('fetching remote...');
     return this.repo.fetch('heroku')
-    .then(() => {
-      console.log('fetched!');
-      this.statusUpdateCallback('Fetched');
-    })
+    .then(() => { this.statusUpdateCallback('Fetching'); })
     .then(this.storeLastCommitHash.bind(this))
     .then(this.resetToOriginalMaster.bind(this));
   }
 
   resetToOriginalMaster() {
-    console.log('reseting to old heroku master commit: ' + this.originalMasterCommit.id().toString());
     return Git.Reset.reset(this.repo, this.originalMasterCommit, Git.Reset.TYPE.HARD);
   }
 
   storeLastCommitHash() {
     return this.repo.getReferenceCommit('remotes/heroku/master')
     .then((commit) => {
-      console.log('store master commit');
       this.originalMasterCommit = commit;
     });
   }
@@ -97,18 +83,15 @@ class HerokuDeployer {
     const message = 'redeployment';
 
     return this.repo.createCommitOnHead(files, author, committer, message)
-    .then(() => {
-      console.log('empty commit added');
-      this.statusUpdateCallback('Commited');
-    });
+    .then(() => { this.statusUpdateCallback('Adding Empty Commit'); });
   }
 
   deployPush() {
     return this.push()
-    .then(() => { this.statusUpdateCallback('Pushed'); })
+    .then(() => { this.statusUpdateCallback('Pushing'); })
     .then(this.resetToOriginalMaster.bind(this))
     .then(this.forcePush.bind(this))
-    .then(() => { this.statusUpdateCallback('Cleaned'); });
+    .then(() => { this.statusUpdateCallback('Cleaning the Repo'); });
   }
 
   push() {
@@ -122,11 +105,7 @@ class HerokuDeployer {
   pushWithOptions(force) {
     return this.repo.getRemote('heroku')
     .then((remote) => {
-      console.log('try to push');
-      return remote.push([`${force ? '+': ''}refs/heads/master:refs/heads/master`], {})
-      .then(() => {
-        console.log('pushed');
-      });
+      return remote.push([`${force ? '+' : ''}refs/heads/master:refs/heads/master`], {});
     });
   }
 }
