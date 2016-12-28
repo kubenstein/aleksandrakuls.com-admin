@@ -25,9 +25,9 @@ class ConcertList extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              <th data-field="date">Date</th>
-              <th data-field="textPL">Text PL</th>
-              <th data-field="textEN">Text EN</th>
+              <th data-field="date" className="date">Date</th>
+              <th data-field="textPL" className="long-text">Text PL</th>
+              <th data-field="textEN" className="long-text">Text EN</th>
               <th data-field="actions" className="actions" />
             </tr>
           </thead>
