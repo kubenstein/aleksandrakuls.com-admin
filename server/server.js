@@ -18,9 +18,13 @@ const server = app.listen(process.env.PORT || 8081);
 const io = SocketIo(server);
 const concertRepository = new ConcertRepository(mongoDbUri);
 
+if (!herokuApiKey && !herokuAppName) {
+  throw new Error('\n!!\n!! HEROKU_API_KEY, HEROKU_APP_NAME env vars have to be set!\n!!');
+}
+
 if (process.env.NODE_ENV === 'production') {
   if (!adminUser && !adminPass) {
-    throw new Error('\n!!\n!! ADMIN_USER, ADMIN_PASS env lets have to be set!\n!!\n!!');
+    throw new Error('\n!!\n!! ADMIN_USER, ADMIN_PASS env vars have to be set!\n!!');
   }
   app.use(basicAuthExpressMiddleware(adminUser, adminPass));
 }
