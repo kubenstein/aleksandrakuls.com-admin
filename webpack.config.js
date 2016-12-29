@@ -1,10 +1,10 @@
 var webpack = require('webpack')
 var CompressionPlugin = require('compression-webpack-plugin')
 
-var rootDir = __dirname + '/src/';
+var rootDir = __dirname + '/frontend/';
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './frontend/index.js',
 
   output: {
     path: __dirname + '/build',
