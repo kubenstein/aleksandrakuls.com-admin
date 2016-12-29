@@ -8,7 +8,9 @@ export default function AppLayout(props) {
   return (
     <div>
       <Header />
-      {props.children}
+      <div className="page-wrapper">
+        {props.children}
+      </div>
       <Footer />
     </div>
   );
