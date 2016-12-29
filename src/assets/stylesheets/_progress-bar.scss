@@ -1,6 +1,10 @@
 .progress-bar-wrapper {
   text-align: center;
   margin: 30px 0;
+
+  .btn-prompt {
+    margin-top: 30px;
+  }
 }
 
 .progress-bar {
@@ -11,9 +15,13 @@
 
   .progress-step {
     float: left;
-    margin-right: 30px;
+    margin-left: 30px;
     position: relative;
     width: 70px;
+
+    &:first-child {
+      margin-left: 0;
+    }
 
     &:before {
       content: " ";

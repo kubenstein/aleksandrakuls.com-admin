@@ -12,13 +12,16 @@ export default class Deployer extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.socket = io();
+    this.socket.on('deploymentSetup', (msg) => { this.deploymentSetupMessage(msg); });
+    this.socket.on('deploymentStatusUpdate', (msg) => { this.deploymentStatusUpdateMessage(msg); });
+    this.socket.on('deploymentError', (msg) => { this.deploymentError(msg); });
+  }
+
   confrim() {
     this.setState({ confirmed: true });
-    const socket = io();
-    socket.on('deploymentSetup', (msg) => { this.deploymentSetupMessage(msg); });
-    socket.on('deploymentStatusUpdate', (msg) => { this.deploymentStatusUpdateMessage(msg); });
-    socket.on('deploymentError', (msg) => { this.deploymentError(msg); });
-    socket.emit('deploymentStart', '');
+    this.socket.emit('deploymentStart', '');
   }
 
   deploymentSetupMessage(steps) {
@@ -34,7 +37,11 @@ export default class Deployer extends React.Component {
   }
 
   stepCssClasses(step) {
-    const { steps, lastSuccessfulStep } = this.state;
+    const { steps, lastSuccessfulStep, confirmed } = this.state;
+    if (!confirmed) {
+      return 'progress-step';
+    }
+
     const stepPosition = steps.indexOf(step);
     const lastSuccessfulStepPosition = steps.indexOf(lastSuccessfulStep);
     const executed = stepPosition <= lastSuccessfulStepPosition;
@@ -44,30 +51,31 @@ export default class Deployer extends React.Component {
             ${inProgress ? 'inProgress' : ''}`;
   }
 
+  buttonCssClasses() {
+    return `btn btn-prompt ${this.state.confirmed ? 'soft-hidden' : ''}`;
+  }
+
   render() {
-    const { confirmed, steps, error } = this.state;
+    const { steps, error } = this.state;
     return (
       <div>
         <h1 className="page-title">Deployment Console</h1>
         <div className="progress-bar-wrapper">
-          {confirmed ?
-            <div>
-              {error ?
-                <div className="errors">
-                  <p>DEPLOYMENT ERROR:<br />{error}</p>
-                </div>
-              : ''}
-              <ul className="progress-bar clearfix">
-                { steps.map(step =>
-                  <li key={step} className={this.stepCssClasses(step)}>{step}</li>
-                )}
-              </ul>
-            </div>
-          :
-            <button onClick={() => { this.confrim(); }} className="btn btn-prompt">
-              Initialize Deployment
-            </button>
-          }
+          <div>
+            {error ?
+              <div className="errors">
+                <p>DEPLOYMENT ERROR:<br />{error}</p>
+              </div>
+            : ''}
+            <ul className="progress-bar clearfix">
+              { steps.map(step =>
+                <li key={step} className={this.stepCssClasses(step)}>{step}</li>
+              )}
+            </ul>
+          </div>
+          <button onClick={() => { this.confrim(); }} className={this.buttonCssClasses()}>
+            Start Deployment
+          </button>
         </div>
       </div>
     );
