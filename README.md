@@ -17,7 +17,7 @@ Related Project: [Aleksandra Kuls Home Page](https://github.com/kubenstein/aleks
 * normal git push
 
 # Interesting aspects of the Project
-- Simplified way of setting all external services (webpack, mongoDB, express server, linter) as a [single dev console](https://twitter.com/j_niewczas/status/811337345769279488).
+- Simplified way of setting all external services (webpack, mongoDB, express server, linter) as a [single dev console](http://www.jakubniewczas.pl/#/blog/node-development-console).
 - The Project is a React-Redux based web app.
 - Server uses a MongoDb as a underlaying database.
 - Part of the app uses WebSockets as communication channel.
