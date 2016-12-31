@@ -2,6 +2,7 @@ const express = require('express');
 const SocketIo = require('socket.io');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const DeploymentWebsocketHandler = require('./lib/deployment-websocket-handler');
 const basicAuthExpressMiddleware = require('./lib/basic-auth').default;
 const ConcertRepository = require('./lib/concert-repository');
 const HerokuDeployer = require('./lib/heroku-deployer');
@@ -65,22 +66,8 @@ app.delete('/api/concerts/:id', (req, res) => {
 });
 
 // -------------- webSockets --------------
-const deployer = new HerokuDeployer(herokuAppName, herokuApiKey);
 
 io.on('connection', (socket) => {
-  socket.emit('deploymentSetup', deployer.steps());
-  socket.on('deploymentStart', () => { initializeDeployment(socket); });
+  const deployer = new HerokuDeployer(herokuAppName, herokuApiKey);
+  new DeploymentWebsocketHandler(deployer, concertRepository).handle(socket);
 });
-
-function initializeDeployment(socket) {
-  return Promise.resolve()
-  .then(() => { concertRepository.removeAllSoftRemoved(); })
-  .then(() => {
-    return deployer.deploy((completedStep) => {
-      socket.emit('deploymentStatusUpdate', completedStep);
-    });
-  })
-  .then(() => { return concertRepository.markAllAsDeployed(); })
-  .then(() => { socket.emit('deploymentFinished', ''); })
-  .catch((error) => { socket.emit('deploymentError', error.toString()); });
-}
