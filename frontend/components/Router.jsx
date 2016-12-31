@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, Redirect, hashHistory } from 'react-router';
-import AppLayout from 'components/basic-layout/AppLayout.jsx';
+import AppLayout from 'components/layout/AppLayout.jsx';
 import ConcertList from 'components/concerts/ConcertList.jsx';
 import ConcertEditForm from 'components/concerts/ConcertEditForm.jsx';
 import ConcertAddForm from 'components/concerts/ConcertAddForm.jsx';
