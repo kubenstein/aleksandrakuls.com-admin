@@ -17,18 +17,16 @@ class HerokuDeployer {
     ];
   }
 
-  deploy(statusUpdateCallback, errorCallback) {
+  deploy(statusUpdateCallback) {
     this.repo = null;
     this.originalMasterCommit = null;
     this.statusUpdateCallback = statusUpdateCallback;
 
-    return Promise.resolve()
-    .then(this.setupRepo.bind(this))
+    return this.setupRepo()
     .then(this.pullData.bind(this))
     .then(this.createEmptyDeploymentCommit.bind(this))
     .then(this.deployPush.bind(this))
-    .then(() => { this.statusUpdateCallback('Deployed'); })
-    .catch((e) => { errorCallback(e); });
+    .then(() => { this.statusUpdateCallback('Deployed'); });
   }
 
   // private

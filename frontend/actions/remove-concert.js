@@ -7,6 +7,9 @@ export default function removeConcert(concert, dispatch) {
   return axios.delete(`/api/concerts/${id}`)
   .then((response) => {
     const removedConcert = response.data;
-    dispatch(ConcertsEvents.removed(removedConcert));
+    //
+    // we dispach UPDATE event eventho it is the delete action.
+    // the reason is resourses are soft deleted
+    dispatch(ConcertsEvents.updated(removedConcert));
   });
 }

@@ -21,11 +21,3 @@ export const updated = concert => ({
     concert: concert
   }
 });
-
-export const REMOVED = 'concertRemoved';
-export const removed = concert => ({
-  type: REMOVED,
-  payload: {
-    concert: concert
-  }
-});

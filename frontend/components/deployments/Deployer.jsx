@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import io from 'socket.io-client';
+import fetchConcerts from 'actions/fetch-concerts';
 
-export default class Deployer extends React.Component {
+class Deployer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +18,8 @@ export default class Deployer extends React.Component {
     this.socket = io();
     this.socket.on('deploymentSetup', (msg) => { this.deploymentSetupMessage(msg); });
     this.socket.on('deploymentStatusUpdate', (msg) => { this.deploymentStatusUpdateMessage(msg); });
-    this.socket.on('deploymentError', (msg) => { this.deploymentError(msg); });
+    this.socket.on('deploymentFinished', () => { this.deploymentFinishedMessage(); });
+    this.socket.on('deploymentError', (msg) => { this.deploymentErrorMessage(msg); });
   }
 
   confrim() {
@@ -32,7 +35,11 @@ export default class Deployer extends React.Component {
     this.setState({ lastSuccessfulStep: lastSuccessfulStep });
   }
 
-  deploymentError(errMessage) {
+  deploymentFinishedMessage() {
+    fetchConcerts(this.props.dispatch);
+  }
+
+  deploymentErrorMessage(errMessage) {
     this.setState({ error: errMessage });
   }
 
@@ -81,3 +88,11 @@ export default class Deployer extends React.Component {
     );
   }
 }
+
+function mapStateToProps(_state) {
+  return {};
+}
+
+export default connect(
+  mapStateToProps
+)(Deployer);

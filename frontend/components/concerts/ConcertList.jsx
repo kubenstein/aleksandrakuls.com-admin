@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { values } from 'lodash';
+import { values, filter } from 'lodash';
 import ConcertDeleteButton from 'components/concerts/ConcertDeleteButton.jsx';
 
 class ConcertList extends React.Component {
@@ -52,9 +52,14 @@ class ConcertList extends React.Component {
   }
 }
 
+function concertsToList(concertsFromStore) {
+  const allConcerts = values(concertsFromStore);
+  return filter(allConcerts, (o) => { return !o.deletedAt; });
+}
+
 function mapStateToProps(state) {
   return {
-    concerts: values(state.concertsState.concerts)
+    concerts: concertsToList(state.concertsState.concerts)
   };
 }
 

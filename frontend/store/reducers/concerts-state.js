@@ -8,13 +8,13 @@ const initialState = {
 export default (state = initialState, action = null) => {
   switch (action.type) {
     case ConcertsEvents.FETCHED: {
+      const concerts = {};
       const fetchedConcerts = action.payload.concerts;
-      const updatedConcerts = Object.assign({}, state.concerts);
       forEach(fetchedConcerts, (c) => {
-        updatedConcerts[c.id] = c;
+        concerts[c.id] = c;
       });
       return Object.assign({}, state, {
-        concerts: updatedConcerts,
+        concerts: concerts,
       });
     }
 
@@ -31,15 +31,6 @@ export default (state = initialState, action = null) => {
       const concert = action.payload.concert;
       const updatedConcerts = Object.assign({}, state.concerts);
       updatedConcerts[concert.id] = concert;
-      return Object.assign({}, state, {
-        concerts: updatedConcerts
-      });
-    }
-
-    case ConcertsEvents.REMOVED: {
-      const concert = action.payload.concert;
-      const updatedConcerts = Object.assign({}, state.concerts);
-      delete updatedConcerts[concert.id];
       return Object.assign({}, state, {
         concerts: updatedConcerts
       });

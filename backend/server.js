@@ -59,7 +59,7 @@ app.post('/api/concerts/:id', (req, res) => {
 
 app.delete('/api/concerts/:id', (req, res) => {
   const id = req.params.id;
-  concertRepository.remove(id).then((removedConcert) => {
+  concertRepository.softRemove(id).then((removedConcert) => {
     return res.json(removedConcert);
   });
 });
@@ -69,16 +69,18 @@ const deployer = new HerokuDeployer(herokuAppName, herokuApiKey);
 
 io.on('connection', (socket) => {
   socket.emit('deploymentSetup', deployer.steps());
-  socket.on('deploymentStart', () => { startDeployment(socket); });
+  socket.on('deploymentStart', () => { initializeDeployment(socket); });
 });
 
-function startDeployment(socket) {
-  deployer.deploy(
-    (completedStep) => {
+function initializeDeployment(socket) {
+  return Promise.resolve()
+  .then(() => { concertRepository.removeAllSoftRemoved(); })
+  .then(() => {
+    return deployer.deploy((completedStep) => {
       socket.emit('deploymentStatusUpdate', completedStep);
-    },
-    (error) => {
-      socket.emit('deploymentError', error.toString());
-    }
-  );
+    });
+  })
+  .then(() => { return concertRepository.markAllAsDeployed(); })
+  .then(() => { socket.emit('deploymentFinished', ''); })
+  .catch((error) => { socket.emit('deploymentError', error.toString()); });
 }
