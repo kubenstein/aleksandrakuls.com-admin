@@ -22,6 +22,10 @@ module.exports = {
         }
       },
       {
+        test: /\.html$/,
+        loader: 'file?name=[path][name].[ext]&context=' + rootDir
+      },
+      {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$/,
         loader: 'file?name=[path][name]-[hash:6].[ext]&context=' + rootDir
       },
