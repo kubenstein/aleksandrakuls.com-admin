@@ -1,6 +1,6 @@
 var webpack = require('webpack')
 var CompressionPlugin = require('compression-webpack-plugin')
-
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var rootDir = __dirname + '/frontend/';
 
 module.exports = {
@@ -21,13 +21,13 @@ module.exports = {
           presets: ['stage-0', 'es2015', 'react']
         }
       },
-      { 
+      {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$/,
         loader: 'file?name=[path][name]-[hash:6].[ext]&context=' + rootDir
       },
-      { 
+      {
         test: /\.s?css$/,
-        loader: 'style!css!sass'
+        loader: ExtractTextPlugin.extract('style-loader', 'css!sass')
       }
     ]
   },
@@ -53,6 +53,7 @@ module.exports = {
   },
 
   plugins: process.env.NODE_ENV === 'production' ? [
+    new ExtractTextPlugin('application.css'),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
@@ -66,6 +67,8 @@ module.exports = {
       algorithm: "gzip",
       test: /\.js$|\.css$|\.html$/
     })
-  ] : [],
+  ] : [
+    new ExtractTextPlugin('application.css'),
+  ],
 
 }
