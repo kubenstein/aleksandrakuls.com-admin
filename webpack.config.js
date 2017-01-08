@@ -1,13 +1,14 @@
-var webpack = require('webpack')
-var CompressionPlugin = require('compression-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var rootDir = __dirname + '/frontend/';
+const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const rootDir = `${__dirname}/frontend/`;
 
 module.exports = {
   entry: './frontend/index.js',
 
   output: {
-    path: __dirname + '/build',
+    path: `${__dirname}/build`,
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -23,11 +24,11 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'file?name=[path][name].[ext]&context=' + rootDir
+        loader: `file?name=[path][name].[ext]&context=${rootDir}`
       },
       {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$/,
-        loader: 'file?name=[path][name]-[hash:6].[ext]&context=' + rootDir
+        loader: `file?name=[path][name]-[hash:6].[ext]&context=${rootDir}`
       },
       {
         test: /\.s?css$/,
@@ -63,16 +64,15 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
     new CompressionPlugin({
-      asset: "[path].gz[query]",
-      algorithm: "gzip",
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$/
     })
   ] : [
     new ExtractTextPlugin('application.css'),
   ],
-
-}
+};

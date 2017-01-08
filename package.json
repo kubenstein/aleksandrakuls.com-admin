@@ -15,7 +15,7 @@
     "dev:frontend": "webpack-dev-server",
     "dev:backend": "MONGODB_URI='localhost/db' nodemon --watch backend/ backend/server.js",
     "dev:db": "mongod --timeStampFormat=ctime -v --dbpath=./db/development --port 27017",
-    "dev:linter": "eslint -c .eslintrc \"./backend/**\" \"./frontend/**\" \"./spec/**\" || true",
+    "dev:linter": "eslint -c .eslintrc \"./*.js\" \"./backend/**\" \"./frontend/**\" \"./spec/**\" || true",
     "dev:linter:ci": "nodemon -e jsx,js --ignore build/ --watch . --exec 'npm run dev:linter'",
     "tests:unit": "./spec/unit/start.sh",
     "tests:e2e": "node ./spec/e2e/e2e-specs-console.js",
