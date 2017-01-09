@@ -6,6 +6,14 @@ class ConcertRepository {
     this.db = mongojs(mongoDbUri, ['concerts']);
   }
 
+  clean() {
+    return new Promise((resolve, _reject) => {
+      this.db.concerts.remove(() => {
+        resolve();
+      });
+    });
+  }
+
   all() {
     return new Promise((resolve, reject) => {
       this.db.concerts.find((err, concerts) => {

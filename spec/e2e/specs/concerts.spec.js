@@ -1,15 +1,11 @@
-const mongojs = require('mongojs');
 const expect = require('chai').expect;
+const ConcertRepository = require('../../../backend/lib/concert-repository');
 
-const db = mongojs(process.env.MONGODB_URI, ['concerts']);
+const repo = new ConcertRepository(process.env.MONGODB_URI);
 
 describe('User', () => {
   beforeEach(() => {
-    return new Promise((resolve) => {
-      db.concerts.remove(() => {
-        resolve();
-      });
-    });
+    return repo.clean();
   });
 
   it('can see concert list', () => {
@@ -113,7 +109,7 @@ describe('User', () => {
       textPL: concertTitle,
       textEN: concertTitle
     };
-    db.concerts.insert(concert, () => {});
+    return repo.add(concert);
   }
 
   function userRemovesTheConcert(_concertTitle) {
