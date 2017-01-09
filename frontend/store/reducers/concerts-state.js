@@ -1,4 +1,4 @@
-import { forEach } from 'lodash';
+import forEach from 'lodash.foreach';
 import * as ConcertsEvents from 'actions/events/concerts-events';
 
 const initialState = {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { values, filter } from 'lodash';
+import values from 'lodash.values';
+import filter from 'lodash.filter';
 import ConcertDeleteButton from 'components/concerts/ConcertDeleteButton.jsx';
 
 class ConcertList extends React.Component {

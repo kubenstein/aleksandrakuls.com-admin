@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { filter, values } from 'lodash';
+import values from 'lodash.values';
+import filter from 'lodash.filter';
 
 class SyncCounter extends React.Component {
   itemsToSync() {
