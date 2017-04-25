@@ -4,7 +4,7 @@
   "author": "Jakub Niewczas",
   "version": "1.0.0",
   "description": "",
-  "license": "ISC",
+  "license": "MIT",
   "main": "index.js",
   "engines": {
     "node": "v7.2.0"
